@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pixel Paw</title>
+
+    <style>
+
+        /* 極簡EF風格樣式 */
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+        
+
+        body {
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+            max-width: 700px;
+
+            margin: 0 auto;
+
+            padding: 40px 20px;
+
+            line-height: 1.6;
+
+            color: #222;
+
+            background-color: #fff;
+
+        }
+
+        
+
+        header {
+
+            margin-bottom: 40px;
+
+        }
+
+        
+
+        h1 {
+
+            font-size: 2.2em;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+
+            line-height: 1.2;
+
+        }
+
+        
+
+        .tagline {
+
+            font-size: 1.2em;
+
+            color: #555;
+
+            margin-bottom: 20px;
+
+        }
+
+        
+
+        h2 {
+
+            font-size: 1.4em;
+
+            font-weight: 600;
+
+            margin-top: 30px;
+
+            margin-bottom: 15px;
+
+            padding-bottom: 5px;
+
+            border-bottom: 1px solid #eaeaea;
+
+        }
+
+        
+
+        p {
+
+            margin-bottom: 15px;
+
+        }
+
+        
+
+        a {
+
+            color: #000;
+
+            text-decoration: underline;
+
+            text-decoration-thickness: 1px;
+
+        }
+
+        
+
+        a:hover {
+
+            text-decoration-thickness: 2px;
+
+        }
+
+        
+
+        ul {
+
+            padding-left: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+        
+
+        li {
+
+            margin-bottom: 8px;
+
+        }
+
+        
+
+        .contact-links {
+
+            margin-top: 10px;
+
+        }
+
+        
+
+        .contact-links a {
+
+            display: inline-block;
+
+            margin-right: 15px;
+
+        }
+
+        
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 20px 15px;
+
+            }
+
+            
+
+            h1 {
+
+                font-size: 1.8em;
+
+            }
+
+            
+
+            .tagline {
+
+                font-size: 1.1em;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Pixel Paw</h1>
+
+        <p class="tagline">Building the Social Connection Protocol for Physical Spaces</p>
+
+    </header>
+
+
+
+    <section>
+
+        <h2>Current Focus</h2>
+
+        <p>
+
+            I'm building the foundational protocol for serendipitous human connection, transforming any physical space into a dynamic network for meaningful conversation and co-creation.
+
+        </p>
+
+        <p>
+
+            Traditional digital maps show you <em>where things are</em>. Our protocol reveals <strong>where meaningful conversations and co-creation are happening</strong>.
+
+        </p>
+
+        <p>
+
+            We enable any physical space—from international conferences and university campuses to corporate offices and art galleries—to possess a transparent, interest-based social layer that eliminates ineffective networking and the loneliness of "conference lurkers."
+
+        </p>
+
+    </section>
+
+
+
+    <section>
+
+        <h2>Background</h2>
+
+        <ul>
+
+            <li>Deep experience in market research, product strategy, and cross-cultural business development</li>
+
+            <li>Fluent in English, Japanese, and Chinese with extensive experience bridging Eastern and Western markets</li>
+
+            <li>Validated the core problem through direct engagement with leading Japanese urban developers</li>
+
+            <li>Currently seeking a technical co-founder to build the protocol and apply to top accelerator programs</li>
+
+        </ul>
+
+    </section>
+
+
+
+    <section>
+
+        <h2>Contact</h2>
+
+        <p>I'm always interested in connecting with potential collaborators, technical co-founders, and others passionate about rebuilding social infrastructure.</p>
+
+        <div class="contact-links">
+
+            <a href=“mailto:h2t2y2@gmail.com”>Email</a>
+
+           <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>
+
