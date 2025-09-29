@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Paw</title>
+    <title>Yeung Hoi Ting - Protocol Research</title>
     <style>
-        /* 極簡EF風格樣式 */
         * {
             margin: 0;
             padding: 0;
@@ -19,11 +18,20 @@
             padding: 40px 20px;
             line-height: 1.6;
             color: #222;
-            background-color: #fff;
+            background-color: #fafafa;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         header {
             margin-bottom: 40px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 20px;
         }
         
         h1 {
@@ -36,7 +44,13 @@
         .tagline {
             font-size: 1.2em;
             color: #555;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .project-badge {
+            font-size: 0.9em;
+            color: #777;
+            font-style: italic;
         }
         
         h2 {
@@ -44,8 +58,7 @@
             font-weight: 600;
             margin-top: 30px;
             margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #eaeaea;
+            color: #333;
         }
         
         p {
@@ -68,16 +81,20 @@
         }
         
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            line-height: 1.5;
         }
         
-        .contact-links {
-            margin-top: 10px;
+        .contact {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
         }
         
-        .contact-links a {
-            display: inline-block;
-            margin-right: 15px;
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 4px;
+            border-radius: 3px;
         }
         
         @media (max-width: 600px) {
@@ -85,51 +102,49 @@
                 padding: 20px 15px;
             }
             
-            h1 {
-                font-size: 1.8em;
+            .container {
+                padding: 25px;
             }
             
-            .tagline {
-                font-size: 1.1em;
+            h1 {
+                font-size: 1.8em;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Pixel Paw</h1>
-        <p class="tagline">Building the Social Connection Protocol for Physical Spaces</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>Yeung Hoi Ting</h1>
+            <p class="tagline">Researching Foundational Protocols for Human Connection</p>
+            <p class="project-badge">Creator of <a href="https://pixelpaw-sbt.github.io/Pixel-Paw/" target="_blank">Pixel Paw</a> — Exploring digital identity through SBT companions</p>
+        </header>
 
-    <section>
-        <h2>Current Focus</h2>
-        <p>
-            I'm building the foundational protocol for serendipitous human connection, transforming any physical space into a dynamic network for meaningful conversation and co-creation.
-        </p>
-        <p>
-            Traditional digital maps show you <em>where things are</em>. Our protocol reveals <strong>where meaningful conversations and co-creation are happening</strong>.
-        </p>
-        <p>
-            We enable any physical space—from international conferences and university campuses to corporate offices and art galleries—to possess a transparent, interest-based social layer that eliminates ineffective networking and the loneliness of "conference lurkers."
-        </p>
-    </section>
+        <section>
+            <h2>Research Focus</h2>
+            <p>
+                How do we rebuild serendipitous human connection in an age of digital isolation? I'm designing a protocol that transforms physical spaces into dynamic networks for meaningful conversation.
+            </p>
+            <p>
+                Traditional maps show you <em>where things are</em>. This protocol reveals <span class="highlight">where meaningful interactions are happening</span>—creating a social layer for conferences, campuses, and offices.
+            </p>
+        </section>
 
-    <section>
-    <h2>Background</h2>
-    <ul>
-        <li>Deep experience in market research, product strategy, and cross-cultural business development</li>
-        <li>Fluent in English, Cantonese, Mandarin and conversational Japanese with Erasmus Mundus Joint Masters Degree in Media Arts Cultures</li>
-        <li><strong>Validated the core problem through direct engagement with leading Japanese urban developers at the <a href="https://www.tokyonode.jp/lab/events/20250619_01/index.html" target="_blank">Tokyo Node XR Hackathon 2025</a></strong></li>
-        <li>Currently seeking a technical co-founder to build the protocol and apply to top accelerator programs</li>
-    </ul>
-    </section>
+        <section>
+            <h2>Background</h2>
+            <ul>
+                <li><strong>5+ years</strong> in product strategy and cross-cultural market research across Asian and European markets</li>
+                <li><strong>Erasmus Mundus Joint Master's</strong> in Media Arts Cultures, focusing on spatial computing and social interaction</li>
+                <li>Validated core concepts with <strong>Mori Building</strong> at the <a href="https://www.tokyonode.jp/lab/events/20250619_01/index.html" target="_blank">Tokyo Node XR Hackathon</a></li>
+                <li>Creator of <a href="https://pixelpaw-sbt.github.io/Pixel-Paw/" target="_blank">Pixel Paw</a> — an experimental SBT-based digital companion demonstrating protocol design thinking</li>
+                <li>Fluent in English, Cantonese, Mandarin; conversational Japanese</li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>Contact</h2>
-        <p>I'm always interested in connecting with potential collaborators, technical co-founders, and others passionate about rebuilding social infrastructure.</p>
-        <div class="contact-links">
-            <a href=“mailto:h2t2y2@gmail.com”>Email</a>
-                 </div>
-    </section>
+        <div class="contact">
+            <p><strong>Email:</strong> <a href="mailto:h2t2y2@gmail.com">h2t2y2@gmail.com</a></p>
+            <p><em>I welcome conversations with researchers, engineers, and funders interested in the future of social infrastructure.</em></p>
+        </div>
+    </div>
 </body>
 </html>
