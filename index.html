@@ -12,6 +12,8 @@
             --light: #f8f9fa;
             --dark: #333;
             --gray: #6a737d;
+            --purple-light: #a78bfa;
+            --purple-dark: #5b21b6;
         }
         
         * {
@@ -184,7 +186,7 @@
             border-radius: 15px;
         }
 
-        /* New Problem-Solution Styles */
+        /* Updated Problem-Solution Styles with Purple Theme */
         .problem-section {
             margin: 3rem 0;
         }
@@ -194,11 +196,11 @@
             padding: 2rem;
             border-radius: 15px;
             margin-bottom: 1.5rem;
-            border-left: 4px solid var(--accent);
+            border-left: 4px solid var(--purple-light);
         }
 
         .problem-item h5 {
-            color: var(--secondary);
+            color: var(--purple-dark);
             margin-bottom: 1rem;
             font-size: 1.3rem;
         }
@@ -216,14 +218,14 @@
 
         .problem-item li:before {
             content: "•";
-            color: var(--primary);
+            color: var(--purple-light);
             position: absolute;
             left: 0;
             font-weight: bold;
         }
 
         .solution-highlight {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background: linear-gradient(135deg, var(--purple-light) 0%, var(--purple-dark) 100%);
             color: white;
             padding: 2.5rem;
             border-radius: 15px;
@@ -402,4 +404,4 @@
         <p>Pixel Paw - Building the passion discovery infrastructure for the next 100 years of human collaboration</p>
     </footer>
 </body>
-    </html>
+                                                                                                                          </html>
