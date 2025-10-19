@@ -184,6 +184,53 @@
             border-radius: 15px;
         }
 
+        /* New Problem-Solution Styles */
+        .problem-section {
+            margin: 3rem 0;
+        }
+
+        .problem-item {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .problem-item h5 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .problem-item ul {
+            list-style-type: none;
+            margin-top: 1rem;
+        }
+
+        .problem-item li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .problem-item li:before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .solution-highlight {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
         footer {
             text-align: center;
             color: white;
@@ -210,7 +257,7 @@
     <div class="container">
         <section class="hero">
             <h1>Pixel Paw</h1>
-            <p>Transforming urban communication through augmented reality</p>
+            <p>Awakening Human Potential through Co-creation</p>
             <a href="#contact" class="cta-button">Get in Touch</a>
         </section>
 
@@ -224,24 +271,42 @@
             </div>
         </section>
 
+        <!-- UPDATED Why Pixel Paw Section -->
         <section class="content-section">
-            <h2 class="section-title">Why Pixel Paw?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Sharp Problem-Solution Fit</h3>
-                    <p>Highly evaluated by Tokyo Node XR Hackathon judges for precise problem identification and innovative solution design.</p>
+            <h2 class="section-title">Why Pixel Paw Exists</h2>
+            <p class="lead" style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem;">Today's society faces a silent crisis of <strong>social disengagement</strong>. Amid social media overload, many people feel exhausted by superficial connections while losing opportunities for meaningful co-creation.</p>
+
+            <div class="problem-section">
+                <h4 style="text-align: center; margin-bottom: 2rem; color: var(--dark);">The Three Core Problems We Solve:</h4>
+                
+                <div class="problem-item">
+                    <h5>1. The Lost Talent of the Socially Reluctant</h5>
+                    <ul>
+                        <li>Traditional networking favors those good at self-promotion and small talk</li>
+                        <li>People with deep expertise and passion but social anxiety remain undervalued</li>
+                    </ul>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h3>Clear Conceptual Foundation</h3>
-                    <p>Strong theoretical background and crystal-clear concept recognized by industry experts.</p>
+
+                <div class="problem-item">
+                    <h5>2. The Untapped Potential of "Oshi Culture"</h5>
+                    <ul>
+                        <li>Japan's fan culture represents a powerful engine for trust and collaboration</li>
+                        <li>Yet it remains confined to personal consumption, never transforming into social creativity</li>
+                    </ul>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Clear Roadmap</h3>
-                    <p>We believe the judges' insight holds true: a working prototype is the essential next step to answe key questions about user engagement and technical feasibility.</p>
+
+                <div class="problem-item">
+                    <h5>3. The Missing Infrastructure for Meaningful Achievements</h5>
+                    <ul>
+                        <li>No system exists that values "what we've accomplished together" over credentials</li>
+                        <li>People lack ways to prove their identity as co-creators beyond corporate roles</li>
+                    </ul>
                 </div>
+            </div>
+
+            <div class="solution-highlight">
+                <h3>Our Solution</h3>
+                <p style="font-size: 1.3rem; margin-top: 1rem;">Pixel Paw transforms urban spaces into "Oshi Ecosystems" using AR and Soulbound Tokens (SBT). Starting from shared passions, we've built a protocol where anyone can naturally unlock their social potential through concrete collaborative projects.</p>
             </div>
         </section>
 
@@ -337,4 +402,4 @@
         <p>Pixel Paw - Building the passion discovery infrastructure for the next 100 years of human collaboration</p>
     </footer>
 </body>
-                </html>
+    </html>
