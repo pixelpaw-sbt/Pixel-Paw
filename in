@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mina Connect | 若者の熱意を、社会の資産へ</title>
+    <style>
+        body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: #fff; }
+        .hero { padding: 100px 20px; text-align: center; background: #f8fafc; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+        h2 { font-size: 2rem; margin-bottom: 40px; text-align: center; }
+        .card-container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
+        .card { border: 1px solid #eee; padding: 30px; border-radius: 8px; }
+        .flow-step { display: flex; align-items: center; margin-bottom: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        .step-num { font-size: 2rem; font-weight: bold; margin-right: 20px; color: #000; }
+        .footer { padding: 40px; text-align: center; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <h1>加ボンの若者の熱意を、<br>社会の資産へ。</h1>
+    <p>AIとSBT技術を活用し、個人の挑戦を「デジタル職歴」として可視化する就業プラットフォーム。<br>Mina Connectは、データに基づいた新しいキャリアの形を提案します。</p>
+    <a href="mailto:h2t2y2@gmail.com" style="background:#000; color:#fff; padding:15px 40px; text-decoration:none; border-radius:5px;">パートナーシップのご相談</a>
+</section>
+
+<section class="section">
+    <h2>なぜ今、Mina Connectなのか？</h2>
+    <div class="card-container">
+        <div class="card">
+            <h3>スキル可視化の欠如</h3>
+            <p>教育と市場のニーズが乖離しており、若者の潜在能力が正当に評価されていません。</p>
+        </div>
+        <div class="card">
+            <h3>信頼の経済圏の不在</h3>
+            <p>紙の履歴書だけでは、個人の継続的な成長や信頼を証明しきれません。</p>
+        </div>
+        <div class="card">
+            <h3>構造的な雇用のミスマッチ</h3>
+            <p>企業は優秀な人材を見つけられず、若者は働く機会に辿り着けません。</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background:#f4f4f4;">
+    <h2>運用の仕組み (The Value Chain)</h2>
+    <div class="flow-step">
+        <div class="step-num">01</div>
+        <div>
+            <h3>スキル・熱意の可視化 (Digital Asset)</h3>
+            <p>AIが個人の活動データを解析し、市場価値のあるスキルセットとして抽出します。</p>
+        </div>
+    </div>
+    <div class="flow-step">
+        <div class="step-num">02</div>
+        <div>
+            <h3>応援による成長サイクル (Verification)</h3>
+            <p>企業や指導者からの評価をSBT（Soulbound Token）として記録し、確かな信頼を構築します。</p>
+        </div>
+    </div>
+    <div class="flow-step">
+        <div class="step-num">03</div>
+        <div>
+            <h3>最適な雇用マッチング (Impact)</h3>
+            <p>蓄積された信頼データに基づき、政府機関や企業と最適なマッチングを実現します。</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>今後の展望</h2>
+    <p>私たちは、単なるマッチングサービスを目指しているわけではありません。加ボンにおける若者の就業データ基盤を構築し、持続可能な「人材育成エコシステム」を確立することを目指しています。現在、JICA共創プログラム（QUEST）への参画を通じ、PNPE（加ボン国家就業署）との連携を深めています。</p>
+</section>
+
+</body>
+</html>
