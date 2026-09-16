@@ -4,28 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PIXEL PAW — AI × Human Context × Place</title>
+  <title>PIXEL PAW — Discover What Could Happen Next.</title>
 
   <meta
     name="description"
-    content="PIXEL PAWは、人・プロジェクト・場所・イベントなどの文脈をAIで捉え、まだ見えていない可能性を発見し、共同行動につなげることを目指しています。"
+    content="PIXEL PAW explores how people, places, projects and moments can create unexpected possibilities."
   >
-
-  <meta name="theme-color" content="#0b0b0f">
 
   <style>
     :root {
-      --bg: #0b0b0f;
-      --bg-soft: #121219;
-      --card: #171720;
-      --card-hover: #1d1d28;
-      --text: #f5f5f7;
-      --muted: #a4a4b0;
-      --line: rgba(255,255,255,0.1);
-      --accent: #c8ff45;
-      --accent-soft: rgba(200,255,69,0.1);
-      --max: 1120px;
-      --radius: 24px;
+      --bg: #07100f;
+      --bg-soft: #0b1514;
+      --panel: rgba(12, 24, 22, 0.78);
+      --line: rgba(180, 255, 83, 0.16);
+      --line-bright: rgba(200, 255, 100, 0.48);
+      --text: #f3f6ef;
+      --muted: #9aa69f;
+      --accent: #caff67;
+      --accent-soft: rgba(202, 255, 103, 0.14);
+      --cyan: #72dfe1;
+      --pink: #ed8cff;
+      --max: 1240px;
+      --radius: 20px;
     }
 
     * {
@@ -39,18 +39,16 @@
     }
 
     body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Helvetica Neue",
-        "Hiragino Kaku Gothic ProN",
-        "Hiragino Sans",
-        "Yu Gothic",
-        Meiryo,
-        sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.75;
+      font-family:
+        Inter,
+        "Noto Sans JP",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        system-ui,
+        sans-serif;
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
@@ -59,595 +57,1201 @@
       text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
+    button {
+      font: inherit;
     }
 
-    .container {
-      width: min(100% - 40px, var(--max));
-      margin: 0 auto;
-    }
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
 
-    /* NAV */
-    nav {
+    .nav {
       position: fixed;
+      z-index: 100;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 1000;
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(5, 12, 11, 0.72);
       backdrop-filter: blur(18px);
-      background: rgba(11,11,15,0.72);
-      border-bottom: 1px solid transparent;
-      transition: 0.3s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    nav.scrolled {
-      border-bottom-color: var(--line);
-    }
-
-    .nav-inner {
-      height: 72px;
+    .brand {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      width: min(100% - 40px, var(--max));
-      margin: auto;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
     }
 
-    .logo {
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      font-size: 20px;
+    .brand-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 20px rgba(202,255,103,0.45);
     }
 
-    .logo span {
-      color: var(--accent);
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
-      align-items: center;
-      list-style: none;
-      font-size: 13px;
-      color: var(--muted);
+      gap: 26px;
+      font-size: 12px;
+      color: #d6ddd7;
+    }
+
+    .nav-links a {
+      opacity: 0.72;
+      transition: opacity 0.2s ease;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      opacity: 1;
     }
 
-    .lang-btn {
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--text);
-      border-radius: 999px;
-      padding: 7px 12px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
+    .lang {
       display: flex;
-      align-items: center;
-      position: relative;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
       overflow: hidden;
-      padding-top: 72px;
+      font-size: 10px;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(
-        circle,
-        rgba(200,255,69,0.12) 0%,
-        rgba(200,255,69,0) 70%
-      );
-      top: 5%;
-      right: -20%;
-      pointer-events: none;
+    .lang span {
+      padding: 5px 9px;
     }
 
-    .hero-content {
-      max-width: 850px;
+    .lang .active {
+      background: rgba(255,255,255,0.10);
+    }
+
+    /* =========================================================
+       GENERAL
+    ========================================================= */
+
+    section {
       position: relative;
-      z-index: 2;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 120px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       color: var(--accent);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 16px rgba(200,255,69,0.7);
-    }
-
-    h1 {
-      font-size: clamp(48px, 8vw, 96px);
-      line-height: 0.98;
-      letter-spacing: -0.06em;
-      margin-bottom: 32px;
-      max-width: 900px;
-    }
-
-    h1 span {
-      color: var(--accent);
-    }
-
-    .hero-description {
-      font-size: clamp(18px, 2vw, 24px);
-      color: var(--muted);
-      max-width: 760px;
-      margin-bottom: 40px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 20px;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 700;
-      transition: 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #0b0b0f;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(200,255,69,0.2);
-    }
-
-    .btn-secondary {
-      border: 1px solid var(--line);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: var(--card);
-    }
-
-    /* SECTION */
-    section {
-      padding: 120px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-label {
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 10px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       margin-bottom: 18px;
     }
 
-    h2 {
-      font-size: clamp(34px, 5vw, 58px);
+    .section-title {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      font-weight: 500;
+      max-width: 720px;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 580px;
+      margin-top: 20px;
+    }
+
+    .small-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(3,10,9,0.08) 0%,
+          rgba(3,10,9,0.22) 45%,
+          rgba(3,10,9,0.98) 100%
+        ),
+        url("images/future-city.jpg") center / cover no-repeat,
+        radial-gradient(
+          circle at 65% 38%,
+          rgba(107, 164, 137, 0.30),
+          transparent 32%
+        ),
+        linear-gradient(135deg, #0b1b19, #08100f 65%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(3,8,7,0.72),
+          transparent 55%
+        );
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(rgba(202,255,103,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(202,255,103,0.15) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: linear-gradient(to bottom, transparent, black 30%, transparent 95%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+      padding-bottom: 100px;
+    }
+
+    .hero-kicker {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6.2vw, 82px);
       line-height: 1.08;
       letter-spacing: -0.045em;
-      margin-bottom: 24px;
+      font-weight: 450;
+      max-width: 850px;
     }
 
-    .section-intro {
-      color: var(--muted);
-      max-width: 720px;
-      font-size: 18px;
-      margin-bottom: 56px;
+    .hero-sub {
+      margin-top: 22px;
+      font-size: 15px;
+      color: rgba(243,246,239,0.76);
+      letter-spacing: 0.02em;
     }
 
-    /* BIG STATEMENT */
-    .statement {
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1.25;
+    .hero-actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 17px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid rgba(202,255,103,0.55);
+      background: var(--accent);
+      color: #10150b;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(202,255,103,0.16);
+    }
+
+    .button.secondary {
+      background: rgba(5,12,11,0.35);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.20);
+    }
+
+    .hero-side-data {
+      position: absolute;
+      right: 0;
+      bottom: 112px;
+      z-index: 2;
+      display: grid;
+      gap: 8px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .hero-side-data span::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .scroll-note {
+      position: absolute;
+      left: 24px;
+      bottom: 26px;
+      z-index: 3;
+      color: rgba(255,255,255,0.5);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+    }
+
+    /* =========================================================
+       CONCEPT
+    ========================================================= */
+
+    .concept-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .concept-copy {
+      max-width: 560px;
+    }
+
+    .concept-copy h2 {
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1.2;
+      font-weight: 500;
       letter-spacing: -0.035em;
-      max-width: 950px;
     }
 
-    .statement strong {
+    .concept-copy p {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .relation-map {
+      position: relative;
+      min-height: 330px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .relation-ring {
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border: 1px solid var(--line-bright);
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+    }
+
+    .relation-ring:nth-child(1) {
+      transform: translateX(-150px);
+    }
+
+    .relation-ring:nth-child(2) {
+      transform: translateX(-50px);
+    }
+
+    .relation-ring:nth-child(3) {
+      transform: translateX(50px);
+    }
+
+    .relation-ring:nth-child(4) {
+      transform: translateX(150px);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .relation-item {
+      position: absolute;
+      width: 120px;
+      text-align: center;
+      font-size: 12px;
+      z-index: 2;
+    }
+
+    .relation-item:nth-of-type(1) {
+      transform: translateX(-150px);
+    }
+
+    .relation-item:nth-of-type(2) {
+      transform: translateX(-50px);
+    }
+
+    .relation-item:nth-of-type(3) {
+      transform: translateX(50px);
+    }
+
+    .relation-item:nth-of-type(4) {
+      transform: translateX(150px);
+    }
+
+    .relation-item strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .relation-item span {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+      font-size: 10px;
+    }
+
+    .relation-glow {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--accent);
+      filter: blur(45px);
+      opacity: 0.14;
+    }
+
+    /* =========================================================
+       POSSIBILITY MAP
+    ========================================================= */
+
+    .map-section {
+      background:
+        radial-gradient(circle at 50% 30%, rgba(202,255,103,0.06), transparent 38%),
+        #060e0d;
+    }
+
+    .map-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .map-heading .section-copy {
+      margin: 0;
+      max-width: 430px;
+    }
+
+    .possibility-map {
+      position: relative;
+      min-height: 680px;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(202,255,103,0.15);
+      background:
+        linear-gradient(
+          rgba(3,10,9,0.20),
+          rgba(3,10,9,0.58)
+        ),
+        url("images/possibility-map.jpg") center / cover no-repeat,
+        radial-gradient(
+          circle at 50% 50%,
+          rgba(65, 124, 100, 0.35),
+          transparent 50%
+        ),
+        #0a1715;
+    }
+
+    .possibility-map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(rgba(202,255,103,0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(202,255,103,0.10) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .map-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, transparent 15%, rgba(3,8,7,0.45) 100%);
+      pointer-events: none;
+    }
+
+    .map-route {
+      position: absolute;
+      width: 80%;
+      height: 55%;
+      left: 10%;
+      top: 25%;
+      border: 1px solid rgba(202,255,103,0.23);
+      border-radius: 50%;
+      transform: rotate(-13deg);
+      box-shadow:
+        0 0 40px rgba(202,255,103,0.05),
+        inset 0 0 30px rgba(202,255,103,0.03);
+    }
+
+    .map-route.route-2 {
+      width: 58%;
+      height: 70%;
+      left: 21%;
+      top: 12%;
+      transform: rotate(28deg);
+      border-color: rgba(114,223,225,0.16);
+    }
+
+    .map-route.route-3 {
+      width: 65%;
+      height: 30%;
+      left: 18%;
+      top: 42%;
+      transform: rotate(-35deg);
+      border-color: rgba(237,140,255,0.14);
+    }
+
+    .map-node {
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.65);
+      background: rgba(10,20,18,0.8);
+      box-shadow: 0 0 22px currentColor;
+      cursor: pointer;
+      z-index: 4;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .map-node:hover {
+      transform: scale(1.35);
+    }
+
+    .map-node.person {
+      color: var(--cyan);
+    }
+
+    .map-node.project {
+      color: var(--pink);
+    }
+
+    .map-node.place {
       color: var(--accent);
     }
 
-    /* FLOW */
-    .flow {
+    .map-node.event {
+      color: #f6d56f;
+    }
+
+    .node-1 { left: 17%; top: 27%; }
+    .node-2 { left: 32%; top: 62%; }
+    .node-3 { left: 53%; top: 22%; }
+    .node-4 { left: 69%; top: 42%; }
+    .node-5 { left: 79%; top: 69%; }
+    .node-6 { left: 44%; top: 76%; }
+    .node-7 { left: 61%; top: 58%; }
+
+    .map-card {
+      position: absolute;
+      z-index: 5;
+      width: 220px;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(5,12,11,0.76);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.24);
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .map-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(202,255,103,0.30);
+    }
+
+    .card-1 { left: 10%; top: 12%; }
+    .card-2 { right: 9%; top: 20%; }
+    .card-3 { left: 29%; bottom: 10%; }
+    .card-4 { right: 12%; bottom: 11%; }
+
+    .map-card .card-type {
+      color: var(--accent);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .map-card h4 {
+      margin-top: 5px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .map-card p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .map-center {
+      position: absolute;
+      z-index: 6;
+      left: 50%;
+      top: 51%;
+      transform: translate(-50%, -50%);
+      width: 90px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(202,255,103,0.24), rgba(5,12,11,0.9) 65%);
+      border: 1px solid rgba(202,255,103,0.6);
+      box-shadow:
+        0 0 35px rgba(202,255,103,0.20),
+        0 0 100px rgba(202,255,103,0.08);
+    }
+
+    .map-center::before {
+      content: "✦";
+      color: var(--accent);
+      font-size: 28px;
+    }
+
+    .map-legend {
+      position: absolute;
+      z-index: 7;
+      top: 22px;
+      right: 22px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: rgba(5,12,11,0.65);
+      backdrop-filter: blur(10px);
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 5px;
+    }
+
+    .legend-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .legend-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .map-prompt {
+      position: absolute;
+      left: 25px;
+      bottom: 22px;
+      z-index: 7;
+      padding: 14px 17px;
+      max-width: 310px;
+      border-radius: 14px;
+      background: rgba(5,12,11,0.76);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(202,255,103,0.17);
+    }
+
+    .map-prompt small {
+      color: var(--accent);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+    }
+
+    .map-prompt p {
+      margin-top: 5px;
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       EXPERIENCE
+    ========================================================= */
+
+    .experience-layout {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .experience-intro {
+      position: sticky;
+      top: 120px;
+      align-self: start;
+    }
+
+    .experience-intro h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.18;
+      font-weight: 500;
+    }
+
+    .experience-intro p {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .figma-button {
+      margin-top: 25px;
+    }
+
+    .figma-mark {
+      display: inline-flex;
+      width: 14px;
+      height: 18px;
+      position: relative;
+      margin-right: 3px;
+    }
+
+    .figma-mark span {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .figma-mark span:nth-child(1) { left: 0; top: 0; background:#f24e1e; }
+    .figma-mark span:nth-child(2) { right: 0; top: 0; background:#ff7262; }
+    .figma-mark span:nth-child(3) { left: 0; top: 6px; background:#a259ff; }
+    .figma-mark span:nth-child(4) { right: 0; top: 6px; background:#1abcfe; }
+    .figma-mark span:nth-child(5) { left: 0; top: 12px; background:#0acf83; }
+
+    .experience-steps {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
     }
 
-    .flow-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 28px;
-      min-height: 210px;
-      position: relative;
-      transition: 0.25s ease;
-    }
-
-    .flow-card:hover {
-      background: var(--card-hover);
-      transform: translateY(-4px);
-    }
-
-    .flow-number {
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 35px;
-    }
-
-    .flow-card h3 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      letter-spacing: -0.03em;
-    }
-
-    .flow-card p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* CONTEXT */
-    .context-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .context-card {
-      padding: 32px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-    }
-
-    .context-icon {
-      font-size: 30px;
-      margin-bottom: 22px;
-    }
-
-    .context-card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .context-card p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    /* SHARED ACTION */
-    .action-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      align-items: stretch;
-    }
-
-    .action-main {
-      background: var(--accent);
-      color: #0b0b0f;
-      border-radius: var(--radius);
-      padding: 48px;
-    }
-
-    .action-main h3 {
-      font-size: 38px;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 18px;
-    }
-
-    .action-main p {
-      font-size: 17px;
-    }
-
-    .action-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .action-item {
-      background: var(--card);
-      border: 1px solid var(--line);
+    .experience-card {
+      min-height: 480px;
       border-radius: 18px;
-      padding: 22px 24px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .action-item span:first-child {
-      font-size: 24px;
-    }
-
-    .action-item strong {
-      display: block;
-      font-size: 15px;
-    }
-
-    .action-item small {
-      color: var(--muted);
-    }
-
-    /* AI */
-    .ai-box {
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(
-          135deg,
-          rgba(200,255,69,0.08),
-          rgba(255,255,255,0.02)
-        );
-      border-radius: var(--radius);
-      padding: 48px;
-    }
-
-    .ai-question {
-      font-size: clamp(26px, 4vw, 44px);
-      line-height: 1.2;
-      letter-spacing: -0.035em;
-      margin-bottom: 28px;
-    }
-
-    .ai-question span {
-      color: var(--accent);
-    }
-
-    .ai-box p {
-      color: var(--muted);
-      max-width: 800px;
-    }
-
-    /* CURRENT PROGRESS */
-    .progress-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .progress-card {
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 32px;
-    }
-
-    .progress-card .tag {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .progress-card h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .progress-card p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    /* EVOLUTION */
-    .timeline {
-      border-left: 1px solid var(--line);
-      margin-top: 48px;
-    }
-
-    .timeline-item {
+      border: 1px solid rgba(255,255,255,0.09);
+      background: linear-gradient(180deg, rgba(17,29,27,0.75), rgba(7,15,14,0.95));
+      padding: 18px;
       position: relative;
-      padding: 0 0 48px 38px;
+      overflow: hidden;
     }
 
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      left: -5px;
-      top: 8px;
-    }
-
-    .timeline-year {
+    .experience-number {
       color: var(--accent);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
     }
 
-    .timeline-item h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
+    .experience-card h3 {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 500;
     }
 
-    .timeline-item p {
+    .experience-card p {
+      margin-top: 7px;
       color: var(--muted);
-      max-width: 720px;
+      font-size: 10px;
     }
 
-    /* FOUNDER */
-    .founder {
+    .phone {
+      position: absolute;
+      left: 50%;
+      bottom: -35px;
+      transform: translateX(-50%);
+      width: 78%;
+      height: 330px;
+      border: 5px solid #1b2523;
+      border-bottom: 0;
+      border-radius: 22px 22px 0 0;
+      background:
+        linear-gradient(180deg, #152421, #08110f);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .phone-top {
+      width: 38px;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.15);
+      margin: 10px auto;
+    }
+
+    .phone-screen {
+      margin: 20px 12px;
+      padding: 12px;
+      border-radius: 11px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .screen-line {
+      height: 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 8px;
+    }
+
+    .screen-line.short {
+      width: 55%;
+    }
+
+    .screen-pill {
+      margin-top: 15px;
+      padding: 9px;
+      border: 1px solid rgba(202,255,103,0.18);
+      border-radius: 9px;
+      font-size: 8px;
+      color: var(--accent);
+    }
+
+    /* =========================================================
+       YOXO NEXT
+    ========================================================= */
+
+    .yoxo {
+      background:
+        radial-gradient(circle at 72% 40%, rgba(202,255,103,0.08), transparent 30%),
+        #070f0e;
+    }
+
+    .yoxo-layout {
       display: grid;
       grid-template-columns: 0.8fr 1.2fr;
-      gap: 48px;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .yoxo-copy h2 {
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1.2;
+      font-weight: 500;
+    }
+
+    .yoxo-copy p {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 500px;
+    }
+
+    .yoxo-status {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid rgba(202,255,103,0.2);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 9px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .yoxo-image {
+      min-height: 450px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(3,8,7,0.08),
+          rgba(3,8,7,0.68)
+        ),
+        url("images/yokohama.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #173330, #0b1614);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .yoxo-overlay {
+      position: absolute;
+      inset: auto 24px 24px 24px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(5,12,11,0.66);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .yoxo-overlay small {
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+    }
+
+    .yoxo-overlay h3 {
+      margin-top: 7px;
+      font-size: 21px;
+      font-weight: 450;
+    }
+
+    /* =========================================================
+       FUTURE
+    ========================================================= */
+
+    .future {
+      text-align: center;
+      padding: 150px 0;
+      background:
+        radial-gradient(circle at center, rgba(202,255,103,0.07), transparent 38%),
+        #060d0c;
+    }
+
+    .future h2 {
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 450;
+      letter-spacing: -0.04em;
+    }
+
+    .future-flow {
+      margin: 55px auto 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .future-flow strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .future-arrow {
+      color: var(--accent);
+    }
+
+    /* =========================================================
+       ABOUT
+    ========================================================= */
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 100px;
       align-items: start;
     }
 
-    .founder-name {
-      font-size: 36px;
-      letter-spacing: -0.04em;
-      margin-bottom: 8px;
+    .about-name {
+      font-size: 24px;
+      font-weight: 500;
     }
 
-    .founder-role {
-      color: var(--accent);
+    .about-role {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 5px;
+    }
+
+    .about-text {
+      color: var(--muted);
       font-size: 14px;
+      max-width: 650px;
     }
 
-    .founder-text {
-      color: var(--muted);
-      font-size: 17px;
+    .about-text p + p {
+      margin-top: 18px;
     }
 
-    .founder-path {
-      margin-top: 28px;
+    .about-tags {
+      margin-top: 25px;
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .path-item {
-      border: 1px solid var(--line);
-      padding: 7px 12px;
+    .tag {
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 999px;
-      color: var(--muted);
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 9px;
+      color: #bbc4be;
     }
 
-    /* CONTACT */
-    .contact {
-      text-align: center;
-      padding-bottom: 100px;
-    }
+    /* =========================================================
+       FOOTER
+    ========================================================= */
 
-    .contact h2 {
-      max-width: 800px;
-      margin: 0 auto 20px;
-    }
-
-    .contact p {
-      color: var(--muted);
-      max-width: 620px;
-      margin: 0 auto 34px;
-    }
-
-    /* FOOTER */
     footer {
-      border-top: 1px solid var(--line);
-      padding: 30px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 35px 0;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 10px;
     }
 
     .footer-inner {
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       gap: 20px;
-      flex-wrap: wrap;
+      align-items: center;
     }
 
-    /* LANGUAGE */
-    .en {
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
       display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      background: rgba(2,7,6,0.75);
+      backdrop-filter: blur(10px);
     }
 
-    body.english .jp {
-      display: none;
+    .modal.open {
+      display: flex;
     }
 
-    body.english .en {
-      display: block;
+    .modal-box {
+      width: min(480px, 100%);
+      padding: 28px;
+      border-radius: 20px;
+      background: #0c1816;
+      border: 1px solid rgba(202,255,103,0.22);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.4);
     }
 
-    body.english .inline-en {
-      display: inline;
+    .modal-box .small-label {
+      color: var(--accent);
     }
 
-    .inline-en {
-      display: none;
+    .modal-box h3 {
+      margin-top: 8px;
+      font-size: 24px;
+      font-weight: 500;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 800px) {
+    .modal-box p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .modal-close {
+      margin-top: 22px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    /* =========================================================
+       REVEAL ANIMATION
+    ========================================================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 1000px) {
 
       .nav-links {
         display: none;
       }
 
-      .flow {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .context-grid,
-      .action-grid,
-      .progress-grid,
-      .founder {
+      .concept-layout,
+      .experience-layout,
+      .yoxo-layout,
+      .about-layout {
         grid-template-columns: 1fr;
+        gap: 55px;
       }
 
-      section {
+      .experience-intro {
+        position: static;
+      }
+
+      .experience-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .relation-map {
+        transform: scale(0.85);
+        transform-origin: center;
+      }
+
+      .hero-side-data {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      .nav {
+        padding: 16px 18px;
+      }
+
+      .container,
+      .hero-content,
+      .footer-inner {
+        width: min(100% - 32px, var(--max));
+      }
+
+      .section {
         padding: 85px 0;
       }
 
       .hero {
-        min-height: 90vh;
+        min-height: 92svh;
       }
 
-      .ai-box,
-      .action-main {
-        padding: 32px;
-      }
-    }
-
-    @media (max-width: 520px) {
-
-      .container,
-      .nav-inner {
-        width: min(100% - 28px, var(--max));
+      .hero-content {
+        padding-bottom: 70px;
       }
 
-      h1 {
-        font-size: 52px;
+      .hero h1 {
+        font-size: clamp(38px, 12vw, 58px);
       }
 
-      .flow {
-        grid-template-columns: 1fr;
+      .hero-sub {
+        font-size: 13px;
       }
 
-      .flow-card {
-        min-height: auto;
+      .relation-map {
+        min-height: 270px;
+        transform: scale(0.62);
+        margin: -40px 0;
       }
 
-      .hero-description {
-        font-size: 17px;
+      .possibility-map {
+        min-height: 600px;
+        border-radius: 20px;
+      }
+
+      .map-card {
+        width: 170px;
+        padding: 11px;
+      }
+
+      .map-card h4 {
+        font-size: 11px;
+      }
+
+      .map-card p {
+        font-size: 9px;
+      }
+
+      .card-1 {
+        left: 6%;
+      }
+
+      .card-2 {
+        right: 5%;
+      }
+
+      .card-3 {
+        left: 7%;
+      }
+
+      .card-4 {
+        right: 5%;
+      }
+
+      .map-legend {
+        top: 12px;
+        right: 12px;
+      }
+
+      .map-prompt {
+        left: 12px;
+        bottom: 12px;
+        right: 12px;
+        max-width: none;
+      }
+
+      .experience-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .experience-card {
+        min-height: 390px;
+      }
+
+      .phone {
+        height: 250px;
+      }
+
+      .yoxo-image {
+        min-height: 330px;
+      }
+
+      .future {
+        padding: 100px 0;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
@@ -655,956 +1259,739 @@
 
 <body>
 
-  <!-- NAV -->
-  <nav id="nav">
-    <div class="nav-inner">
+  <!-- =========================================================
+       NAV
+  ========================================================= -->
 
-      <a href="#top" class="logo">
-        PIXEL <span>PAW</span>
-      </a>
+  <header class="nav" id="nav">
+    <a href="#top" class="brand">
+      <span class="brand-dot"></span>
+      PIXEL PAW
+    </a>
 
-      <ul class="nav-links">
-        <li><a href="#concept">Concept</a></li>
-        <li><a href="#how">How it works</a></li>
-        <li><a href="#progress">Progress</a></li>
-        <li><a href="#founder">Founder</a></li>
-        <li>
-          <button class="lang-btn" onclick="toggleLanguage()" id="langButton">
-            EN
-          </button>
-        </li>
-      </ul>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="#concept">Concept</a>
+        <a href="#map">Possibility Map</a>
+        <a href="#experience">Experience</a>
+        <a href="#yoxo">YOXO NEXT</a>
+        <a href="#about">About</a>
+      </nav>
 
+      <div class="lang">
+        <span class="active">JP</span>
+        <span>EN</span>
+      </div>
     </div>
-  </nav>
+  </header>
 
 
-  <!-- HERO -->
+  <!-- =========================================================
+       HERO
+  ========================================================= -->
+
   <main id="top">
 
     <section class="hero">
-      <div class="container">
-        <div class="hero-content">
+
+      <div class="hero-grid"></div>
+
+      <div class="hero-content reveal">
+
+        <div class="hero-kicker">
+          AI × PEOPLE × PLACE
+        </div>
+
+        <h1>
+          まだ見えていない<br>
+          可能性を、見つける。
+        </h1>
+
+        <p class="hero-sub">
+          Discover what could happen next.
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="#map" class="button">
+            POSSIBILITY MAP
+            <span>→</span>
+          </a>
+
+          <a href="#experience" class="button secondary">
+            EXPERIENCE
+            <span>↗</span>
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-side-data">
+        <span>People</span>
+        <span>Projects</span>
+        <span>Places</span>
+        <span>Events</span>
+        <span>Possibilities</span>
+      </div>
+
+      <div class="scroll-note">
+        SCROLL ↓
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         01 CONCEPT
+    ======================================================= -->
+
+    <section class="section" id="concept">
+
+      <div class="container concept-layout">
+
+        <div class="concept-copy reveal">
 
           <div class="eyebrow">
-            AI × Human Context × Place
+            01 / Concept
           </div>
-
-          <div class="jp">
-            <h1>
-              まだ見えていない<br>
-              <span>可能性を、見つける。</span>
-            </h1>
-
-            <p class="hero-description">
-              PIXEL PAWは、人・プロジェクト・場所・イベントなどの
-              「文脈」をAIで捉え、これまで検索やマッチングでは
-              見つけにくかった新しいつながりや可能性を発見し、
-              実際の共同行動につなげることを目指しています。
-            </p>
-          </div>
-
-          <div class="en">
-            <h1>
-              Discover the<br>
-              <span>possibilities you didn't know were there.</span>
-            </h1>
-
-            <p class="hero-description">
-              PIXEL PAW explores how AI can understand the context
-              surrounding people, projects, places and events —
-              and discover possibilities that conventional search
-              and matching may miss.
-            </p>
-          </div>
-
-          <div class="hero-actions">
-
-            <a href="#concept" class="btn btn-primary">
-              Explore PIXEL PAW →
-            </a>
-
-            <a href="#progress" class="btn btn-secondary">
-              2026 Current Progress
-            </a>
-
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- CONCEPT -->
-    <section id="concept">
-
-      <div class="container">
-
-        <div class="section-label">
-          01 / Concept
-        </div>
-
-        <div class="jp">
 
           <h2>
-            人を「マッチング」するのではなく、
-            <br>
-            <strong>可能性が生まれる条件</strong>をつくる。
-          </h2>
-
-          <p class="section-intro">
-            私たちは、プロフィールやキーワードだけでは
-            見つけにくい「次に起こり得ること」に注目しています。
-          </p>
-
-        </div>
-
-        <div class="en">
-
-          <h2>
-            We don't simply match people.
-            <br>
-            We design the <strong>conditions for possibility.</strong>
-          </h2>
-
-          <p class="section-intro">
-            Instead of relying only on profiles, keywords or
-            predefined categories, PIXEL PAW explores what could
-            happen next.
-          </p>
-
-        </div>
-
-        <p class="statement jp">
-          既存のコミュニティや都市には、すでに多くの人、
-          場所、イベント、企業、プロジェクトが存在しています。
-          <strong>問題は、それらの間にある可能性がまだ見えていないことです。</strong>
-        </p>
-
-        <p class="statement en">
-          Cities and communities already contain people, places,
-          events, companies and projects.
-          <strong>The opportunity is often hidden between them.</strong>
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- HOW -->
-    <section id="how">
-
-      <div class="container">
-
-        <div class="section-label">
-          02 / How it works
-        </div>
-
-        <div class="jp">
-
-          <h2>Context → Serendipity → Shared Action</h2>
-
-          <p class="section-intro">
-            「誰と会うべきか」を検索するのではなく、
-            今の自分と、その場所・時間・周囲の文脈から
-            「何が起こり得るか」を発見します。
-          </p>
-
-        </div>
-
-        <div class="en">
-
-          <h2>Context → Serendipity → Shared Action</h2>
-
-          <p class="section-intro">
-            Instead of searching for someone to meet,
-            PIXEL PAW explores what could happen next
-            based on context, place and moment.
-          </p>
-
-        </div>
-
-
-        <div class="flow">
-
-          <div class="flow-card">
-            <div class="flow-number">01</div>
-
-            <h3>Context</h3>
-
-            <p class="jp">
-              今の関心、経験、取り組んでいること、
-              やってみたいことなどの文脈を持って街や
-              コミュニティに入る。
-            </p>
-
-            <p class="en">
-              Bring your current interests, experiences,
-              projects and things you want to try.
-            </p>
-          </div>
-
-
-          <div class="flow-card">
-            <div class="flow-number">02</div>
-
-            <h3>Serendipity</h3>
-
-            <p class="jp">
-              AIが人・プロジェクト・場所・イベントの
-              文脈を横断し、まだ検索されていない
-              可能性を発見する。
-            </p>
-
-            <p class="en">
-              AI explores context across people,
-              projects, places and events to surface
-              unexpected possibilities.
-            </p>
-          </div>
-
-
-          <div class="flow-card">
-            <div class="flow-number">03</div>
-
-            <h3>Shared Action</h3>
-
-            <p class="jp">
-              「話しましょう」だけではなく、
-              一緒に何かをする具体的なきっかけをつくる。
-            </p>
-
-            <p class="en">
-              Instead of simply saying “connect,”
-              create a concrete reason to do something together.
-            </p>
-          </div>
-
-
-          <div class="flow-card">
-            <div class="flow-number">04</div>
-
-            <h3>Evidence</h3>
-
-            <p class="jp">
-              会話、参加、共創などの実際の行動を通じて、
-              新しい可能性が生まれたかを検証する。
-            </p>
-
-            <p class="en">
-              Learn from real participation, interaction
-              and collaboration — not just profiles.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CONTEXT -->
-    <section>
-
-      <div class="container">
-
-        <div class="section-label">
-          03 / Human Context
-        </div>
-
-        <div class="jp">
-
-          <h2>
-            「今の自分」を持って、
-            <br>
-            場所に入る。
-          </h2>
-
-          <p class="section-intro">
-            人はプロフィールだけでは表現できません。
-            今何に興味があるのか、何を経験したのか、
-            何をやってみたいのか。
-            そうした変化する文脈が、新しい発見の手がかりになります。
-          </p>
-
-        </div>
-
-        <div class="en">
-
-          <h2>
-            Enter a place with
-            <br>
-            <span>your current context.</span>
-          </h2>
-
-          <p class="section-intro">
-            A person is more than a profile.
-            What they are curious about, what they have experienced,
-            and what they want to try can become signals for discovery.
-          </p>
-
-        </div>
-
-
-        <div class="context-grid">
-
-          <div class="context-card">
-            <div class="context-icon">👀</div>
-            <h3>What's Up</h3>
-            <p class="jp">
-              今、何を考えている？
-              何に関心を持っている？
-            </p>
-            <p class="en">
-              What is on your mind right now?
-            </p>
-          </div>
-
-
-          <div class="context-card">
-            <div class="context-icon">❤️</div>
-            <h3>OSHI</h3>
-            <p class="jp">
-              何に強く惹かれている？
-              何に時間や注意を向けている？
-            </p>
-            <p class="en">
-              What captures your attention and curiosity?
-            </p>
-          </div>
-
-
-          <div class="context-card">
-            <div class="context-icon">🧭</div>
-            <h3>Experience</h3>
-            <p class="jp">
-              これまでどこに行き、何を体験した？
-            </p>
-            <p class="en">
-              What experiences have shaped your trajectory?
-            </p>
-          </div>
-
-
-          <div class="context-card">
-            <div class="context-icon">✨</div>
-            <h3>Want to Try</h3>
-            <p class="jp">
-              次に何をやってみたい？
-            </p>
-            <p class="en">
-              What would you like to try next?
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SHARED ACTION -->
-    <section>
-
-      <div class="container">
-
-        <div class="section-label">
-          04 / Shared Action
-        </div>
-
-        <div class="action-grid">
-
-          <div class="action-main">
-
-            <h3 class="jp">
-              私たちは、
-              「つながってください」
-              とは言いません。
-            </h3>
-
-            <h3 class="en">
-              We don't ask people
-              to connect.
-            </h3>
-
-            <p class="jp">
-              一緒に何かをする理由をつくります。
-            </p>
-
-            <p class="en">
-              We give them something to do together.
-            </p>
-
-          </div>
-
-
-          <div class="action-list">
-
-            <div class="action-item">
-              <span>☕</span>
-              <div>
-                <strong>一緒にコーヒーを飲む</strong>
-                <small>Grab a coffee together</small>
-              </div>
-            </div>
-
-            <div class="action-item">
-              <span>🎨</span>
-              <div>
-                <strong>展示を見る</strong>
-                <small>Visit an exhibition together</small>
-              </div>
-            </div>
-
-            <div class="action-item">
-              <span>🎪</span>
-              <div>
-                <strong>イベントに参加する</strong>
-                <small>Join an event together</small>
-              </div>
-            </div>
-
-            <div class="action-item">
-              <span>🛠️</span>
-              <div>
-                <strong>一緒につくる</strong>
-                <small>Make something together</small>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- AI -->
-    <section>
-
-      <div class="container">
-
-        <div class="section-label">
-          05 / Why AI?
-        </div>
-
-        <div class="ai-box">
-
-          <div class="jp">
-
-            <div class="ai-question">
-              AIは、人間が
-              <span>検索しなかった可能性</span>
-              を発見できるのか？
-            </div>
-
-            <p>
-              AIそのものを価値にしたいわけではありません。
-              職種、スキル、キーワードなどの明示的な条件であれば、
-              従来の検索やルールベースの仕組みでも発見できます。
-              PIXEL PAWが検証したいのは、
-              「経験」「関心」「現在取り組んでいること」
-              「困っていること」「やってみたいこと」など、
-              複数の文脈を横断したときに、AIが人間だけでは
-              見つけにくい組み合わせを発見できるのか、
-              そしてそれが実際の行動につながるのか、という問いです。
-            </p>
-
-          </div>
-
-          <div class="en">
-
-            <div class="ai-question">
-              Can AI discover
-              <span>possibilities people would not search for?</span>
-            </div>
-
-            <p>
-              AI itself is not the value.
-              Conventional search can already find people based on
-              explicit attributes such as skills and keywords.
-              PIXEL PAW is testing whether AI can reason across
-              multiple forms of context — experience, interests,
-              current projects, challenges and things people want to try —
-              and surface combinations that people would not have
-              searched for themselves.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CURRENT PROGRESS -->
-    <section id="progress">
-
-      <div class="container">
-
-        <div class="section-label">
-          06 / Current Progress — 2026
-        </div>
-
-        <div class="jp">
-
-          <h2>
-            今は「アイデアを語る段階」から、
-            <br>
-            <span>検証する段階</span>へ。
-          </h2>
-
-          <p class="section-intro">
-            PIXEL PAWは現在、初期検証フェーズです。
-            AIによるSerendipity Discoveryが実際の共同行動や
-            組織・都市にとっての価値につながるかを検証しています。
-          </p>
-
-        </div>
-
-        <div class="en">
-
-          <h2>
-            From explaining the idea
-            <br>
-            to <span>testing the hypothesis.</span>
-          </h2>
-
-          <p class="section-intro">
-            PIXEL PAW is currently in an early validation stage.
-            We are testing whether AI-powered discovery can lead to
-            real shared action and measurable value.
-          </p>
-
-        </div>
-
-
-        <div class="progress-grid">
-
-          <div class="progress-card">
-            <span class="tag">TOKYO NEW</span>
-
-            <h3>東京都「TOKYO NEW」</h3>
-
-            <p class="jp">
-              東京都の女性起業家支援プログラムに採択。
-              東京を拠点に事業仮説とエコシステム連携を検証しています。
-            </p>
-
-            <p class="en">
-              Selected for the Tokyo Metropolitan Government's
-              women entrepreneur support program.
-            </p>
-          </div>
-
-
-          <div class="progress-card">
-            <span class="tag">SOCIAL X</span>
-
-            <h3>Social X 第2期</h3>
-
-            <p class="jp">
-              Social X第2期に採択。
-              企業・自治体・地域との共創可能性を探索しています。
-            </p>
-
-            <p class="en">
-              Selected for Social X Cohort 2,
-              exploring co-creation with companies,
-              municipalities and communities.
-            </p>
-          </div>
-
-
-          <div class="progress-card">
-            <span class="tag">FIELD VALIDATION</span>
-
-            <h3>地域・都市での検証</h3>
-
-            <p class="jp">
-              福山市などの地域・若者向けプロジェクトを含め、
-              「既存のコミュニティに存在するが、まだ活用されていない
-              つながり」をどのように発見・活性化できるかを検討しています。
-            </p>
-
-            <p class="en">
-              Exploring how existing communities and urban ecosystems
-              can activate connections that are currently underused.
-            </p>
-          </div>
-
-
-          <div class="progress-card">
-            <span class="tag">PROTOTYPE</span>
-
-            <h3>AI Serendipity Engine</h3>
-
-            <p class="jp">
-              人・プロジェクト・場所・イベントの文脈を横断して
-              「次に起こり得ること」を発見するプロトタイプを開発中です。
-            </p>
-
-            <p class="en">
-              Developing an early prototype exploring how AI can
-              discover what could happen next across people,
-              projects, places and events.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- EVOLUTION -->
-    <section>
-
-      <div class="container">
-
-        <div class="section-label">
-          07 / Evolution
-        </div>
-
-        <div class="jp">
-
-          <h2>
-            試行錯誤から、
-            <br>
-            現在のPIXEL PAWへ。
-          </h2>
-
-          <p class="section-intro">
-            PIXEL PAWは最初から現在の形だったわけではありません。
-            これまでの研究やプロトタイプを通じて、
-            「どの技術を使うか」よりも「どんな可能性を生み出すか」
-            という問いへ焦点を移してきました。
-          </p>
-
-        </div>
-
-        <div class="en">
-
-          <h2>
-            From experimentation
-            <br>
-            to today's PIXEL PAW.
-          </h2>
-
-          <p class="section-intro">
-            PIXEL PAW has evolved through research and experimentation.
-            The focus has gradually shifted from the technology itself
-            toward the question of what new possibilities technology
-            can help create.
-          </p>
-
-        </div>
-
-
-        <div class="timeline">
-
-          <div class="timeline-item">
-
-            <div class="timeline-year">RESEARCH</div>
-
-            <h3>Urban Serendipity / Heterotopia</h3>
-
-            <p class="jp">
-              東京の都市空間における偶発的な出会いと、
-              場所が人の行動に与える影響について研究。
-            </p>
-
-            <p class="en">
-              Research into urban serendipity, heterotopia
-              and how places influence human encounters.
-            </p>
-
-          </div>
-
-
-          <div class="timeline-item">
-
-            <div class="timeline-year">EARLIER PROTOTYPES</div>
-
-            <h3>AR / Oshi / Web3 / SBT</h3>
-
-            <p class="jp">
-              AR、Oshi文化、デジタルアイデンティティ、
-              Web3 / SBTなどを用いた「人と人が自然に出会い、
-              共創する仕組み」を探索。
-            </p>
-
-            <p class="en">
-              Explored AR, Oshi culture, digital identity,
-              Web3 and SBT concepts as possible mechanisms
-              for meaningful collaboration.
-            </p>
-
-          </div>
-
-
-          <div class="timeline-item">
-
-            <div class="timeline-year">2026 → NOW</div>
-
-            <h3>AI × Human Context × Place</h3>
-
-            <p class="jp">
-              現在は、AIによるSerendipity Discoveryと
-              Shared Actionに焦点を絞り、
-              実際の企業・都市・コミュニティ環境での
-              検証を進めています。
-            </p>
-
-            <p class="en">
-              Today, the focus is AI-powered Serendipity Discovery
-              and Shared Action, tested in real-world corporate,
-              urban and community environments.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- FUTURE -->
-    <section>
-
-      <div class="container">
-
-        <div class="section-label">
-          08 / Future
-        </div>
-
-        <div class="jp">
-
-          <h2>
-            人を探すのではなく、
-            <br>
-            <span>次に起こる可能性を探す。</span>
-          </h2>
-
-          <p class="section-intro">
-            長期的には、PIXEL PAWを単なるマッチングサービスではなく、
-            都市やコミュニティに存在する「まだ見えていない可能性」を
-            発見し、行動や共創につなげるインテリジェンスレイヤーへ
-            発展させることを目指しています。
-          </p>
-
-        </div>
-
-        <div class="en">
-
-          <h2>
-            Don't just discover people.
-            <br>
-            <span>Discover what could happen next.</span>
-          </h2>
-
-          <p class="section-intro">
-            In the long term, PIXEL PAW aims to become an intelligence
-            layer for cities and communities — discovering hidden
-            possibilities and turning them into action and co-creation.
-          </p>
-
-        </div>
-
-
-        <div class="flow">
-
-          <div class="flow-card">
-            <div class="flow-number">01</div>
-            <h3>Space Discovery</h3>
-            <p class="jp">どこに可能性があるか。</p>
-            <p class="en">Where could something happen?</p>
-          </div>
-
-          <div class="flow-card">
-            <div class="flow-number">02</div>
-            <h3>Human Discovery</h3>
-            <p class="jp">誰が関わる可能性があるか。</p>
-            <p class="en">Who could be involved?</p>
-          </div>
-
-          <div class="flow-card">
-            <div class="flow-number">03</div>
-            <h3>Role Discovery</h3>
-            <p class="jp">どんな役割が生まれるか。</p>
-            <p class="en">What roles could emerge?</p>
-          </div>
-
-          <div class="flow-card">
-            <div class="flow-number">04</div>
-            <h3>Co-creation Discovery</h3>
-            <p class="jp">何が一緒につくれるか。</p>
-            <p class="en">What could be created together?</p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- FOUNDER -->
-    <section id="founder">
-
-      <div class="container">
-
-        <div class="section-label">
-          09 / Founder
-        </div>
-
-        <div class="founder">
-
-          <div>
-
-            <div class="founder-name">
-              Yeung Hoi Ting
-            </div>
-
-            <div class="founder-role">
-              Founder / Product & Ecosystem Strategy
-            </div>
-
-          </div>
-
-
-          <div>
-
-            <p class="founder-text jp">
-
-              香港出身。クリエイティブメディアを学んだ後、
-              ヨーロッパでMedia Arts Culturesの修士課程を経験。
-              日本では山口県・YCAMでのインターンシップをきっかけに、
-              アート、テクノロジー、都市、コミュニティが交わる環境に
-              継続的に関わってきました。
-
-              <br><br>
-
-              自分自身、異なる場所・分野・人との偶然の出会いから
-              キャリアやプロジェクトが生まれてきた経験があります。
-
-              <br><br>
-
-              その経験から、
-              <strong>
-                「偶然だけど意味のある出会い」を
-                もっと多くの人が経験できる仕組み
-              </strong>
-              をつくれないかと考え、PIXEL PAWを始めました。
-
-            </p>
-
-
-            <p class="founder-text en">
-
-              Born in Hong Kong, Hoi Ting studied Creative Media
-              and later completed a European joint master's in
-              Media Arts Cultures.
-
-              <br><br>
-
-              Her connection with Japan began through an internship
-              at YCAM in Yamaguchi, followed by experiences across
-              art, technology, cities and communities in Europe and Japan.
-
-              <br><br>
-
-              Her own career has been shaped by unexpected encounters
-              across places, disciplines and people.
-
-              <br><br>
-
-              PIXEL PAW started from a simple question:
-              <strong>
-                Can we design more opportunities for meaningful
-                encounters to happen?
-              </strong>
-
-            </p>
-
-
-            <div class="founder-path">
-
-              <span class="path-item">Hong Kong</span>
-              <span class="path-item">Creative Media</span>
-              <span class="path-item">YCAM / Japan</span>
-              <span class="path-item">Europe</span>
-              <span class="path-item">Media Arts Cultures</span>
-              <span class="path-item">Tokyo</span>
-              <span class="path-item">PIXEL PAW</span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CONTACT -->
-    <section class="contact">
-
-      <div class="container">
-
-        <div class="section-label">
-          10 / Build With Us
-        </div>
-
-        <div class="jp">
-
-          <h2>
-            まだ見えていない可能性を、
-            <br>
-            一緒に検証しませんか？
+            人をマッチングするのではなく、<br>
+            可能性が生まれる<br>
+            きっかけをつくる。
           </h2>
 
           <p>
-            企業、自治体、大学、施設、コミュニティ、
-            そして技術パートナーとの実証・共創を探しています。
+            プロフィールやキーワードだけでは見つけにくい、
+            「次に起こり得ること」に注目しています。
           </p>
 
         </div>
 
-        <div class="en">
+
+        <div class="relation-map reveal">
+
+          <div class="relation-glow"></div>
+
+          <div class="relation-ring"></div>
+          <div class="relation-ring"></div>
+          <div class="relation-ring"></div>
+          <div class="relation-ring"></div>
+
+          <div class="relation-item">
+            <strong>Person</strong>
+            <span>人</span>
+          </div>
+
+          <div class="relation-item">
+            <strong>Person</strong>
+            <span>人</span>
+          </div>
+
+          <div class="relation-item">
+            <strong>Place</strong>
+            <span>場所</span>
+          </div>
+
+          <div class="relation-item">
+            <strong>Moment</strong>
+            <span>時間</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         02 POSSIBILITY MAP
+    ======================================================= -->
+
+    <section class="section map-section" id="map">
+
+      <div class="container">
+
+        <div class="map-heading reveal">
+
+          <div>
+            <div class="eyebrow">
+              02 / Possibility Map
+            </div>
+
+            <h2 class="section-title">
+              いま、どこで、<br>
+              どんな可能性が<br>
+              生まれているのか。
+            </h2>
+          </div>
+
+          <p class="section-copy">
+            人・プロジェクト・場所・イベントなどの
+            文脈をAIが横断的に捉え、
+            まだ見えていないつながりや可能性を可視化します。
+          </p>
+
+        </div>
+
+
+        <div class="possibility-map reveal">
+
+          <div class="map-route"></div>
+          <div class="map-route route-2"></div>
+          <div class="map-route route-3"></div>
+
+          <div class="map-vignette"></div>
+
+          <!-- Nodes -->
+
+          <div class="map-node person node-1"
+               data-title="Designer × Student"
+               data-type="People"></div>
+
+          <div class="map-node place node-2"
+               data-title="Collaboration Café"
+               data-type="Place"></div>
+
+          <div class="map-node event node-3"
+               data-title="Creative Workshop"
+               data-type="Event"></div>
+
+          <div class="map-node project node-4"
+               data-title="XR City Project"
+               data-type="Project"></div>
+
+          <div class="map-node place node-5"
+               data-title="Exhibition Space"
+               data-type="Place"></div>
+
+          <div class="map-node person node-6"
+               data-title="Researcher × Creator"
+               data-type="People"></div>
+
+          <div class="map-node event node-7"
+               data-title="Open Innovation Event"
+               data-type="Event"></div>
+
+
+          <!-- Cards -->
+
+          <div class="map-card card-1"
+               data-title="Designer × Student"
+               data-type="People">
+
+            <div class="card-type">
+              People
+            </div>
+
+            <h4>
+              Designer × Student
+            </h4>
+
+            <p>
+              Different experience. Shared curiosity.
+            </p>
+
+          </div>
+
+
+          <div class="map-card card-2"
+               data-title="Creative Workshop"
+               data-type="Event">
+
+            <div class="card-type">
+              Event
+            </div>
+
+            <h4>
+              Creative Workshop
+            </h4>
+
+            <p>
+              A place where an unexpected connection can begin.
+            </p>
+
+          </div>
+
+
+          <div class="map-card card-3"
+               data-title="Collaboration Café"
+               data-type="Place">
+
+            <div class="card-type">
+              Place
+            </div>
+
+            <h4>
+              Collaboration Café
+            </h4>
+
+            <p>
+              Not just a place to meet. A place to do something.
+            </p>
+
+          </div>
+
+
+          <div class="map-card card-4"
+               data-title="XR City Project"
+               data-type="Project">
+
+            <div class="card-type">
+              Project
+            </div>
+
+            <h4>
+              XR City Project
+            </h4>
+
+            <p>
+              A possible next step discovered from context.
+            </p>
+
+          </div>
+
+
+          <!-- Central possibility -->
+
+          <div class="map-center"
+               title="New Possibility">
+          </div>
+
+
+          <!-- Legend -->
+
+          <div class="map-legend">
+
+            <div class="legend-row">
+              <span class="legend-dot" style="background:#72dfe1"></span>
+              People
+            </div>
+
+            <div class="legend-row">
+              <span class="legend-dot" style="background:#ed8cff"></span>
+              Projects
+            </div>
+
+            <div class="legend-row">
+              <span class="legend-dot" style="background:#caff67"></span>
+              Places
+            </div>
+
+            <div class="legend-row">
+              <span class="legend-dot" style="background:#f6d56f"></span>
+              Events
+            </div>
+
+          </div>
+
+
+          <!-- AI discovery -->
+
+          <div class="map-prompt">
+
+            <small>
+              POSSIBILITY DISCOVERED
+            </small>
+
+            <p>
+              この人とこの場所を、
+              今このタイミングでつなげると
+              新しい体験が生まれるかもしれません。
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         03 EXPERIENCE
+    ======================================================= -->
+
+    <section class="section" id="experience">
+
+      <div class="container experience-layout">
+
+        <div class="experience-intro reveal">
+
+          <div class="eyebrow">
+            03 / Experience
+          </div>
 
           <h2>
-            What possibilities
-            <br>
-            could we discover together?
+            一緒に何かをする。<br>
+            そのきっかけを。
           </h2>
 
           <p>
-            We are exploring pilots and collaborations with
-            companies, cities, universities, facilities,
-            communities and technology partners.
+            PIXEL PAWは、単なる検索やマッチングではなく、
+            実際の行動につながる体験をデザインします。
           </p>
+
+
+          <!-- CHANGE THIS URL IF YOUR FIGMA URL CHANGES -->
+
+          <a
+            class="button figma-button"
+            href="https://score-clean-23536865.figma.site/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+
+            <span class="figma-mark">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+
+            Figmaで体験する →
+          </a>
 
         </div>
 
-        <a
-          href="mailto:hi@pixelpaw.org"
-          class="btn btn-primary"
-        >
-          hi@pixelpaw.org
-        </a>
+
+        <div class="experience-steps reveal">
+
+
+          <!-- STEP 01 -->
+
+          <div class="experience-card">
+
+            <div class="experience-number">
+              01
+            </div>
+
+            <h3>
+              自分の文脈を持つ
+            </h3>
+
+            <p>
+              今の興味、経験、やってみたいこと。
+            </p>
+
+            <div class="phone">
+
+              <div class="phone-top"></div>
+
+              <div class="phone-screen">
+
+                <div class="screen-line"></div>
+                <div class="screen-line short"></div>
+
+                <div class="screen-pill">
+                  今の興味は？
+                </div>
+
+                <div class="screen-pill">
+                  やってみたいこと
+                </div>
+
+                <div class="screen-pill">
+                  Experience
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- STEP 02 -->
+
+          <div class="experience-card">
+
+            <div class="experience-number">
+              02
+            </div>
+
+            <h3>
+              可能性を発見する
+            </h3>
+
+            <p>
+              AIが文脈の組み合わせを探索。
+            </p>
+
+            <div class="phone">
+
+              <div class="phone-top"></div>
+
+              <div class="phone-screen">
+
+                <div class="screen-line short"></div>
+
+                <div class="screen-pill">
+                  ✦ Possible connection
+                </div>
+
+                <div class="screen-pill">
+                  Exhibition
+                </div>
+
+                <div class="screen-pill">
+                  New Project
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- STEP 03 -->
+
+          <div class="experience-card">
+
+            <div class="experience-number">
+              03
+            </div>
+
+            <h3>
+              一緒に行動する
+            </h3>
+
+            <p>
+              会うことではなく、何かをする。
+            </p>
+
+            <div class="phone">
+
+              <div class="phone-top"></div>
+
+              <div class="phone-screen">
+
+                <div class="screen-line"></div>
+
+                <div class="screen-pill">
+                  ☕ Café
+                </div>
+
+                <div class="screen-pill">
+                  🎨 Exhibition
+                </div>
+
+                <div class="screen-pill">
+                  🎪 Event
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- STEP 04 -->
+
+          <div class="experience-card">
+
+            <div class="experience-number">
+              04
+            </div>
+
+            <h3>
+              新しい可能性が生まれる
+            </h3>
+
+            <p>
+              会話、体験、コラボレーション。
+            </p>
+
+            <div class="phone">
+
+              <div class="phone-top"></div>
+
+              <div class="phone-screen">
+
+                <div class="screen-line short"></div>
+
+                <div class="screen-pill">
+                  New Connection
+                </div>
+
+                <div class="screen-pill">
+                  New Experience
+                </div>
+
+                <div class="screen-pill">
+                  New Possibility
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         04 YOXO NEXT
+    ======================================================= -->
+
+    <section class="section yoxo" id="yoxo">
+
+      <div class="container yoxo-layout">
+
+        <div class="yoxo-copy reveal">
+
+          <div class="eyebrow">
+            04 / Current Exploration
+          </div>
+
+          <h2>
+            YOXO NEXTとともに、<br>
+            横浜での可能性を探る。
+          </h2>
+
+          <p>
+            横浜の未来をつくる人・場所・プロジェクトの
+            新しいつながりを、PIXEL PAWの視点から探っています。
+          </p>
+
+          <div class="yoxo-status">
+            <span class="status-dot"></span>
+            Exploring a potential collaboration
+          </div>
+
+        </div>
+
+
+        <div class="yoxo-image reveal">
+
+          <div class="yoxo-overlay">
+
+            <small>
+              YOKOHAMA / FUTURE CITY
+            </small>
+
+            <h3>
+              人・場所・プロジェクトが
+              出会う街へ。
+            </h3>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         FUTURE CITY VISION
+    ======================================================= -->
+
+    <section class="future">
+
+      <div class="container reveal">
+
+        <div class="eyebrow">
+          Future City
+        </div>
+
+        <h2>
+          Space Discovery →<br>
+          Human Discovery →<br>
+          Co-creation Discovery
+        </h2>
+
+        <div class="future-flow">
+
+          <strong>Space</strong>
+          <span class="future-arrow">→</span>
+
+          <strong>Human</strong>
+          <span class="future-arrow">→</span>
+
+          <strong>Role</strong>
+          <span class="future-arrow">→</span>
+
+          <strong>Co-creation</strong>
+          <span class="future-arrow">→</span>
+
+          <strong>City</strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         ABOUT
+    ======================================================= -->
+
+    <section class="section" id="about">
+
+      <div class="container about-layout">
+
+        <div class="reveal">
+
+          <div class="eyebrow">
+            About
+          </div>
+
+          <div class="about-name">
+            Yeung Hoi Ting
+          </div>
+
+          <div class="about-role">
+            Founder / Product & Creative Strategy
+          </div>
+
+        </div>
+
+
+        <div class="about-text reveal">
+
+          <p>
+            香港出身。クリエイティブメディアを学び、
+            欧州でMedia Arts Culturesの修士を経験。
+          </p>
+
+          <p>
+            日本、ヨーロッパ、教育、文化、テクノロジーなど、
+            異なる環境での経験をもとに、
+            人と人、人と場所の間にある
+            「まだ見えていない可能性」を探っています。
+          </p>
+
+          <p>
+            PIXEL PAWでは、AIを使って人を評価するのではなく、
+            可能性が生まれる状況をつくり、
+            その先に何が起こるのかを検証しています。
+          </p>
+
+          <div class="about-tags">
+
+            <span class="tag">Creative Media</span>
+            <span class="tag">AI</span>
+            <span class="tag">Urban Innovation</span>
+            <span class="tag">Community</span>
+            <span class="tag">Experience Design</span>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -1613,17 +2000,29 @@
   </main>
 
 
-  <!-- FOOTER -->
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+
   <footer>
 
-    <div class="container footer-inner">
+    <div class="footer-inner">
 
-      <div>
-        © 2026 PIXEL PAW
+      <div class="brand">
+        <span class="brand-dot"></span>
+        PIXEL PAW
+      </div>
+
+      <div class="footer-links">
+        <a href="#concept">Concept</a>
+        <a href="#map">Possibility Map</a>
+        <a href="#experience">Experience</a>
+        <a href="#yoxo">YOXO NEXT</a>
+        <a href="mailto:hi@pixelpaw.org">hi@pixelpaw.org</a>
       </div>
 
       <div>
-        AI × Human Context × Place
+        © 2026 PIXEL PAW
       </div>
 
     </div>
@@ -1631,15 +2030,50 @@
   </footer>
 
 
+  <!-- =========================================================
+       MODAL
+  ========================================================= -->
+
+  <div class="modal" id="modal">
+
+    <div class="modal-box">
+
+      <div class="small-label" id="modal-type">
+        POSSIBILITY
+      </div>
+
+      <h3 id="modal-title">
+        New Possibility
+      </h3>
+
+      <p id="modal-description">
+        A new connection discovered from context.
+      </p>
+
+      <button class="modal-close" id="modal-close">
+        CLOSE
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================= -->
+
   <script>
 
-    /* NAV SCROLL EFFECT */
+    /* ---------------------------------------------------------
+       NAV BACKGROUND
+    --------------------------------------------------------- */
 
     const nav = document.getElementById("nav");
 
     window.addEventListener("scroll", () => {
 
-      if (window.scrollY > 20) {
+      if (window.scrollY > 30) {
         nav.classList.add("scrolled");
       } else {
         nav.classList.remove("scrolled");
@@ -1648,21 +2082,144 @@
     });
 
 
-    /* LANGUAGE SWITCH */
+    /* ---------------------------------------------------------
+       SCROLL REVEAL
+    --------------------------------------------------------- */
 
-    function toggleLanguage() {
+    const revealElements = document.querySelectorAll(".reveal");
 
-      document.body.classList.toggle("english");
+    const revealObserver = new IntersectionObserver(
+      entries => {
 
-      const button = document.getElementById("langButton");
+        entries.forEach(entry => {
 
-      if (document.body.classList.contains("english")) {
-        button.textContent = "JP";
-        document.documentElement.lang = "en";
-      } else {
-        button.textContent = "EN";
-        document.documentElement.lang = "ja";
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add("visible");
+
+            revealObserver.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.12
       }
+    );
+
+    revealElements.forEach(element => {
+      revealObserver.observe(element);
+    });
+
+
+    /* ---------------------------------------------------------
+       POSSIBILITY MAP INTERACTION
+    --------------------------------------------------------- */
+
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modal-title");
+    const modalType = document.getElementById("modal-type");
+    const modalDescription = document.getElementById("modal-description");
+    const modalClose = document.getElementById("modal-close");
+
+    const mapItems = document.querySelectorAll(
+      ".map-node, .map-card"
+    );
+
+    mapItems.forEach(item => {
+
+      item.addEventListener("click", () => {
+
+        const title =
+          item.dataset.title || "New Possibility";
+
+        const type =
+          item.dataset.type || "Possibility";
+
+        modalTitle.textContent = title;
+        modalType.textContent = type.toUpperCase();
+
+        modalDescription.textContent =
+          "PIXEL PAW discovers this possibility from the relationship between people, places, projects and moments.";
+
+        modal.classList.add("open");
+
+      });
+
+    });
+
+
+    modalClose.addEventListener("click", () => {
+      modal.classList.remove("open");
+    });
+
+
+    modal.addEventListener("click", event => {
+
+      if (event.target === modal) {
+        modal.classList.remove("open");
+      }
+
+    });
+
+
+    document.addEventListener("keydown", event => {
+
+      if (event.key === "Escape") {
+        modal.classList.remove("open");
+      }
+
+    });
+
+
+    /* ---------------------------------------------------------
+       SMALL PARALLAX EFFECT FOR MAP
+    --------------------------------------------------------- */
+
+    const map = document.querySelector(".possibility-map");
+
+    if (map) {
+
+      map.addEventListener("mousemove", event => {
+
+        const rect = map.getBoundingClientRect();
+
+        const x =
+          (event.clientX - rect.left) / rect.width - 0.5;
+
+        const y =
+          (event.clientY - rect.top) / rect.height - 0.5;
+
+        const routes = map.querySelectorAll(".map-route");
+
+        routes.forEach((route, index) => {
+
+          const strength = (index + 1) * 4;
+
+          route.style.marginLeft =
+            `${x * strength}px`;
+
+          route.style.marginTop =
+            `${y * strength}px`;
+
+        });
+
+      });
+
+      map.addEventListener("mouseleave", () => {
+
+        const routes = map.querySelectorAll(".map-route");
+
+        routes.forEach(route => {
+
+          route.style.marginLeft = "0";
+          route.style.marginTop = "0";
+
+        });
+
+      });
 
     }
 
