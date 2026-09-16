@@ -1,445 +1,1672 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Paw - AR Communication Tool</title>
-    <style>
-        :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #ff6b6b;
-            --light: #f8f9fa;
-            --dark: #333;
-            --gray: #6a737d;
-            --purple-light: #a78bfa;
-            --purple-dark: #5b21b6;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            min-height: 100vh;
-        }
+  <title>PIXEL PAW — AI × Human Context × Place</title>
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+  <meta
+    name="description"
+    content="PIXEL PAWは、人・プロジェクト・場所・イベントなどの文脈をAIで捉え、まだ見えていない可能性を発見し、共同行動につなげることを目指しています。"
+  >
 
-        .hero {
-            text-align: center;
-            color: white;
-            padding: 4rem 0;
-        }
+  <meta name="theme-color" content="#0b0b0f">
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-        }
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --bg-soft: #121219;
+      --card: #171720;
+      --card-hover: #1d1d28;
+      --text: #f5f5f7;
+      --muted: #a4a4b0;
+      --line: rgba(255,255,255,0.1);
+      --accent: #c8ff45;
+      --accent-soft: rgba(200,255,69,0.1);
+      --max: 1120px;
+      --radius: 24px;
+    }
 
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
-        }
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
 
-        .content-section {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--dark);
-            text-align: center;
-        }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+    .container {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+    }
 
-        .feature-card {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(18px);
+      background: rgba(11,11,15,0.72);
+      border-bottom: 1px solid transparent;
+      transition: 0.3s ease;
+    }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
+    nav.scrolled {
+      border-bottom-color: var(--line);
+    }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(100% - 40px, var(--max));
+      margin: auto;
+    }
 
-        .research-highlight {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-        }
+    .logo {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 20px;
+    }
 
-        .layer-section {
-            margin-bottom: 2rem;
-        }
+    .logo span {
+      color: var(--accent);
+    }
 
-        .layer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      list-style: none;
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-        .layer-section ul {
-            list-style-type: none;
-        }
+    .nav-links a:hover {
+      color: var(--text);
+    }
 
-        .layer-section li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
+    .lang-btn {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 12px;
+    }
 
-        .layer-section li:before {
-            content: "•";
-            color: var(--accent);
-            position: absolute;
-            left: 0;
-        }
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
 
-        .strategy-section {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-        }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(
+        circle,
+        rgba(200,255,69,0.12) 0%,
+        rgba(200,255,69,0) 70%
+      );
+      top: 5%;
+      right: -20%;
+      pointer-events: none;
+    }
 
-        .achievement-list {
-            list-style-type: none;
-        }
+    .hero-content {
+      max-width: 850px;
+      position: relative;
+      z-index: 2;
+    }
 
-        .achievement-list li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
 
-        .achievement-list li:before {
-            content: "✓";
-            color: var(--accent);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(200,255,69,0.7);
+    }
 
-        .highlight-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
+    h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin-bottom: 32px;
+      max-width: 900px;
+    }
 
-        .highlight-link:hover {
-            text-decoration: underline;
-        }
+    h1 span {
+      color: var(--accent);
+    }
 
-        .contact-section {
-            text-align: center;
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 15px;
-        }
+    .hero-description {
+      font-size: clamp(18px, 2vw, 24px);
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 40px;
+    }
 
-        .problem-section {
-            margin: 3rem 0;
-        }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-        .problem-item {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--purple-light);
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
 
-        .problem-item h5 {
-            color: var(--purple-dark);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
+    .btn-primary {
+      background: var(--accent);
+      color: #0b0b0f;
+    }
 
-        .problem-item ul {
-            list-style-type: none;
-            margin-top: 1rem;
-        }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(200,255,69,0.2);
+    }
 
-        .problem-item li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
+    .btn-secondary {
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
 
-        .problem-item li:before {
-            content: "•";
-            color: var(--purple-light);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
+    .btn-secondary:hover {
+      background: var(--card);
+    }
 
-        .solution-highlight {
-            background: linear-gradient(135deg, var(--purple-light) 0%, var(--purple-dark) 100%);
-            color: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            text-align: center;
-        }
+    /* SECTION */
+    section {
+      padding: 120px 0;
+      border-top: 1px solid var(--line);
+    }
 
-        footer {
-            text-align: center;
-            color: white;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
+    .section-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .content-section {
-                padding: 2rem 1rem;
-            }
-        }
-    </style>
+    h2 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      margin-bottom: 24px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 720px;
+      font-size: 18px;
+      margin-bottom: 56px;
+    }
+
+    /* BIG STATEMENT */
+    .statement {
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.25;
+      letter-spacing: -0.035em;
+      max-width: 950px;
+    }
+
+    .statement strong {
+      color: var(--accent);
+    }
+
+    /* FLOW */
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .flow-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 210px;
+      position: relative;
+      transition: 0.25s ease;
+    }
+
+    .flow-card:hover {
+      background: var(--card-hover);
+      transform: translateY(-4px);
+    }
+
+    .flow-number {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 35px;
+    }
+
+    .flow-card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .flow-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* CONTEXT */
+    .context-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .context-card {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+    }
+
+    .context-icon {
+      font-size: 30px;
+      margin-bottom: 22px;
+    }
+
+    .context-card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .context-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* SHARED ACTION */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .action-main {
+      background: var(--accent);
+      color: #0b0b0f;
+      border-radius: var(--radius);
+      padding: 48px;
+    }
+
+    .action-main h3 {
+      font-size: 38px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .action-main p {
+      font-size: 17px;
+    }
+
+    .action-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .action-item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .action-item span:first-child {
+      font-size: 24px;
+    }
+
+    .action-item strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .action-item small {
+      color: var(--muted);
+    }
+
+    /* AI */
+    .ai-box {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(200,255,69,0.08),
+          rgba(255,255,255,0.02)
+        );
+      border-radius: var(--radius);
+      padding: 48px;
+    }
+
+    .ai-question {
+      font-size: clamp(26px, 4vw, 44px);
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      margin-bottom: 28px;
+    }
+
+    .ai-question span {
+      color: var(--accent);
+    }
+
+    .ai-box p {
+      color: var(--muted);
+      max-width: 800px;
+    }
+
+    /* CURRENT PROGRESS */
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .progress-card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .progress-card .tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .progress-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .progress-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* EVOLUTION */
+    .timeline {
+      border-left: 1px solid var(--line);
+      margin-top: 48px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 48px 38px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      left: -5px;
+      top: 8px;
+    }
+
+    .timeline-year {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    /* FOUNDER */
+    .founder {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .founder-name {
+      font-size: 36px;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .founder-role {
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    .founder-text {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .founder-path {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .path-item {
+      border: 1px solid var(--line);
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* CONTACT */
+    .contact {
+      text-align: center;
+      padding-bottom: 100px;
+    }
+
+    .contact h2 {
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    .contact p {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 34px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* LANGUAGE */
+    .en {
+      display: none;
+    }
+
+    body.english .jp {
+      display: none;
+    }
+
+    body.english .en {
+      display: block;
+    }
+
+    body.english .inline-en {
+      display: inline;
+    }
+
+    .inline-en {
+      display: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .flow {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .context-grid,
+      .action-grid,
+      .progress-grid,
+      .founder {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 85px 0;
+      }
+
+      .hero {
+        min-height: 90vh;
+      }
+
+      .ai-box,
+      .action-main {
+        padding: 32px;
+      }
+    }
+
+    @media (max-width: 520px) {
+
+      .container,
+      .nav-inner {
+        width: min(100% - 28px, var(--max));
+      }
+
+      h1 {
+        font-size: 52px;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-card {
+        min-height: auto;
+      }
+
+      .hero-description {
+        font-size: 17px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <section class="hero">
-            <h1>Pixel Paw</h1>
-            <p>Awakening Human Potential through Co-creation</p>
-            <a href="#contact" class="cta-button">Get in Touch</a>
-        </section>
 
-        <section class="content-section">
-            <h2 class="section-title">About the Project</h2>
-            <p>Pixel Paw is an innovative AR communication tool designed to create meaningful connections in urban environments. Born from cutting-edge research in heterotopia and urban serendipity, our platform reimagines how people interact with space and each other.</p>
-            
-            <div class="research-highlight">
-                <h3>Research Foundation</h3>
-                <p>Grounded in "Heterotopia" research on urban serendipity: <em>"Place-Making & Navigating The Otherness in Tokyo: A Case Study of Locative Media Mobile Application"</em> (Yeung, H.T. Leonardo Abstracts Service, ID: 4136)</p>
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+
+      <a href="#top" class="logo">
+        PIXEL <span>PAW</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#concept">Concept</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#progress">Progress</a></li>
+        <li><a href="#founder">Founder</a></li>
+        <li>
+          <button class="lang-btn" onclick="toggleLanguage()" id="langButton">
+            EN
+          </button>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <main id="top">
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="eyebrow">
+            AI × Human Context × Place
+          </div>
+
+          <div class="jp">
+            <h1>
+              まだ見えていない<br>
+              <span>可能性を、見つける。</span>
+            </h1>
+
+            <p class="hero-description">
+              PIXEL PAWは、人・プロジェクト・場所・イベントなどの
+              「文脈」をAIで捉え、これまで検索やマッチングでは
+              見つけにくかった新しいつながりや可能性を発見し、
+              実際の共同行動につなげることを目指しています。
+            </p>
+          </div>
+
+          <div class="en">
+            <h1>
+              Discover the<br>
+              <span>possibilities you didn't know were there.</span>
+            </h1>
+
+            <p class="hero-description">
+              PIXEL PAW explores how AI can understand the context
+              surrounding people, projects, places and events —
+              and discover possibilities that conventional search
+              and matching may miss.
+            </p>
+          </div>
+
+          <div class="hero-actions">
+
+            <a href="#concept" class="btn btn-primary">
+              Explore PIXEL PAW →
+            </a>
+
+            <a href="#progress" class="btn btn-secondary">
+              2026 Current Progress
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CONCEPT -->
+    <section id="concept">
+
+      <div class="container">
+
+        <div class="section-label">
+          01 / Concept
+        </div>
+
+        <div class="jp">
+
+          <h2>
+            人を「マッチング」するのではなく、
+            <br>
+            <strong>可能性が生まれる条件</strong>をつくる。
+          </h2>
+
+          <p class="section-intro">
+            私たちは、プロフィールやキーワードだけでは
+            見つけにくい「次に起こり得ること」に注目しています。
+          </p>
+
+        </div>
+
+        <div class="en">
+
+          <h2>
+            We don't simply match people.
+            <br>
+            We design the <strong>conditions for possibility.</strong>
+          </h2>
+
+          <p class="section-intro">
+            Instead of relying only on profiles, keywords or
+            predefined categories, PIXEL PAW explores what could
+            happen next.
+          </p>
+
+        </div>
+
+        <p class="statement jp">
+          既存のコミュニティや都市には、すでに多くの人、
+          場所、イベント、企業、プロジェクトが存在しています。
+          <strong>問題は、それらの間にある可能性がまだ見えていないことです。</strong>
+        </p>
+
+        <p class="statement en">
+          Cities and communities already contain people, places,
+          events, companies and projects.
+          <strong>The opportunity is often hidden between them.</strong>
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOW -->
+    <section id="how">
+
+      <div class="container">
+
+        <div class="section-label">
+          02 / How it works
+        </div>
+
+        <div class="jp">
+
+          <h2>Context → Serendipity → Shared Action</h2>
+
+          <p class="section-intro">
+            「誰と会うべきか」を検索するのではなく、
+            今の自分と、その場所・時間・周囲の文脈から
+            「何が起こり得るか」を発見します。
+          </p>
+
+        </div>
+
+        <div class="en">
+
+          <h2>Context → Serendipity → Shared Action</h2>
+
+          <p class="section-intro">
+            Instead of searching for someone to meet,
+            PIXEL PAW explores what could happen next
+            based on context, place and moment.
+          </p>
+
+        </div>
+
+
+        <div class="flow">
+
+          <div class="flow-card">
+            <div class="flow-number">01</div>
+
+            <h3>Context</h3>
+
+            <p class="jp">
+              今の関心、経験、取り組んでいること、
+              やってみたいことなどの文脈を持って街や
+              コミュニティに入る。
+            </p>
+
+            <p class="en">
+              Bring your current interests, experiences,
+              projects and things you want to try.
+            </p>
+          </div>
+
+
+          <div class="flow-card">
+            <div class="flow-number">02</div>
+
+            <h3>Serendipity</h3>
+
+            <p class="jp">
+              AIが人・プロジェクト・場所・イベントの
+              文脈を横断し、まだ検索されていない
+              可能性を発見する。
+            </p>
+
+            <p class="en">
+              AI explores context across people,
+              projects, places and events to surface
+              unexpected possibilities.
+            </p>
+          </div>
+
+
+          <div class="flow-card">
+            <div class="flow-number">03</div>
+
+            <h3>Shared Action</h3>
+
+            <p class="jp">
+              「話しましょう」だけではなく、
+              一緒に何かをする具体的なきっかけをつくる。
+            </p>
+
+            <p class="en">
+              Instead of simply saying “connect,”
+              create a concrete reason to do something together.
+            </p>
+          </div>
+
+
+          <div class="flow-card">
+            <div class="flow-number">04</div>
+
+            <h3>Evidence</h3>
+
+            <p class="jp">
+              会話、参加、共創などの実際の行動を通じて、
+              新しい可能性が生まれたかを検証する。
+            </p>
+
+            <p class="en">
+              Learn from real participation, interaction
+              and collaboration — not just profiles.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTEXT -->
+    <section>
+
+      <div class="container">
+
+        <div class="section-label">
+          03 / Human Context
+        </div>
+
+        <div class="jp">
+
+          <h2>
+            「今の自分」を持って、
+            <br>
+            場所に入る。
+          </h2>
+
+          <p class="section-intro">
+            人はプロフィールだけでは表現できません。
+            今何に興味があるのか、何を経験したのか、
+            何をやってみたいのか。
+            そうした変化する文脈が、新しい発見の手がかりになります。
+          </p>
+
+        </div>
+
+        <div class="en">
+
+          <h2>
+            Enter a place with
+            <br>
+            <span>your current context.</span>
+          </h2>
+
+          <p class="section-intro">
+            A person is more than a profile.
+            What they are curious about, what they have experienced,
+            and what they want to try can become signals for discovery.
+          </p>
+
+        </div>
+
+
+        <div class="context-grid">
+
+          <div class="context-card">
+            <div class="context-icon">👀</div>
+            <h3>What's Up</h3>
+            <p class="jp">
+              今、何を考えている？
+              何に関心を持っている？
+            </p>
+            <p class="en">
+              What is on your mind right now?
+            </p>
+          </div>
+
+
+          <div class="context-card">
+            <div class="context-icon">❤️</div>
+            <h3>OSHI</h3>
+            <p class="jp">
+              何に強く惹かれている？
+              何に時間や注意を向けている？
+            </p>
+            <p class="en">
+              What captures your attention and curiosity?
+            </p>
+          </div>
+
+
+          <div class="context-card">
+            <div class="context-icon">🧭</div>
+            <h3>Experience</h3>
+            <p class="jp">
+              これまでどこに行き、何を体験した？
+            </p>
+            <p class="en">
+              What experiences have shaped your trajectory?
+            </p>
+          </div>
+
+
+          <div class="context-card">
+            <div class="context-icon">✨</div>
+            <h3>Want to Try</h3>
+            <p class="jp">
+              次に何をやってみたい？
+            </p>
+            <p class="en">
+              What would you like to try next?
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SHARED ACTION -->
+    <section>
+
+      <div class="container">
+
+        <div class="section-label">
+          04 / Shared Action
+        </div>
+
+        <div class="action-grid">
+
+          <div class="action-main">
+
+            <h3 class="jp">
+              私たちは、
+              「つながってください」
+              とは言いません。
+            </h3>
+
+            <h3 class="en">
+              We don't ask people
+              to connect.
+            </h3>
+
+            <p class="jp">
+              一緒に何かをする理由をつくります。
+            </p>
+
+            <p class="en">
+              We give them something to do together.
+            </p>
+
+          </div>
+
+
+          <div class="action-list">
+
+            <div class="action-item">
+              <span>☕</span>
+              <div>
+                <strong>一緒にコーヒーを飲む</strong>
+                <small>Grab a coffee together</small>
+              </div>
             </div>
-        </section>
 
-        <section class="content-section">
-            <h2 class="section-title">Why Pixel Paw Exists</h2>
-            <p class="lead" style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem;">Today's society faces a silent crisis of <strong>social disengagement</strong>. Amid social media overload, many people feel exhausted by superficial connections while losing opportunities for meaningful co-creation.</p>
-
-            <div class="problem-section">
-                <h4 style="text-align: center; margin-bottom: 2rem; color: var(--dark);">The Three Core Problems We Solve:</h4>
-                
-                <div class="problem-item">
-                    <h5>1. The Lost Talent of the Socially Reluctant</h5>
-                    <ul>
-                        <li>Traditional networking favors those good at self-promotion and small talk</li>
-                        <li>People with deep expertise and passion but social anxiety remain undervalued</li>
-                    </ul>
-                </div>
-
-                <div class="problem-item">
-                    <h5>2. The Untapped Potential of "Oshi Culture"</h5>
-                    <ul>
-                        <li>Japan's fan culture represents a powerful engine for trust and collaboration</li>
-                        <li>Yet it remains confined to personal consumption, never transforming into social creativity</li>
-                    </ul>
-                </div>
-
-                <div class="problem-item">
-                    <h5>3. The Missing Infrastructure for Meaningful Achievements</h5>
-                    <ul>
-                        <li>No system exists that values "what we've accomplished together" over credentials</li>
-                        <li>People lack ways to prove their identity as co-creators beyond corporate roles</li>
-                    </ul>
-                </div>
+            <div class="action-item">
+              <span>🎨</span>
+              <div>
+                <strong>展示を見る</strong>
+                <small>Visit an exhibition together</small>
+              </div>
             </div>
 
-            <div class="solution-highlight">
-                <h3>Our Solution</h3>
-                <p style="font-size: 1.3rem; margin-top: 1rem;">Pixel Paw transforms urban spaces into "Oshi Ecosystems" using AR and Soulbound Tokens (SBT). Starting from shared passions, we've built a protocol where anyone can naturally unlock their social potential through concrete collaborative projects.</p>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <h2 class="section-title">Protocol Architecture</h2>
-            
-            <div class="layer-section">
-                <h3>🔍 Discovery Layer</h3>
-                <ul>
-                    <li><strong>AR-powered interface</strong> that reveals shared "Oshi" and intellectual passions in physical spaces</li>
-                    <li><strong>Real-time visualization</strong> of alignment in future-critical themes</li>
-                    <li><strong>Context-aware mapping</strong> of collaborative potential</li>
-                </ul>
+            <div class="action-item">
+              <span>🎪</span>
+              <div>
+                <strong>イベントに参加する</strong>
+                <small>Join an event together</small>
+              </div>
             </div>
 
-            <div class="layer-section">
-                <h3>🪪 Identity Layer</h3>
-                <ul>
-                    <li><strong>Passion & Collaborative Credentials</strong> as permanent achievement records</li>
-                    <li><strong>Soulbound Tokens</strong> verifying meaningful interactions and shared journeys</li>
-                    <li><strong>Identity built around what you build</strong>, not just who you are</li>
-                </ul>
+            <div class="action-item">
+              <span>🛠️</span>
+              <div>
+                <strong>一緒につくる</strong>
+                <small>Make something together</small>
+              </div>
             </div>
 
-            <div class="layer-section">
-                <h3>💰 Capital Layer</h3>
-                <ul>
-                    <li><strong>Proof-of-Collaboration</strong> as protocol-native social capital</li>
-                    <li><strong>New models for value discovery</strong> and funding collaborative work</li>
-                    <li><strong>Turns passion-driven collaborations</strong> into a verifiable, valuable asset</li>
-                </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- AI -->
+    <section>
+
+      <div class="container">
+
+        <div class="section-label">
+          05 / Why AI?
+        </div>
+
+        <div class="ai-box">
+
+          <div class="jp">
+
+            <div class="ai-question">
+              AIは、人間が
+              <span>検索しなかった可能性</span>
+              を発見できるのか？
             </div>
-        </section>
 
-        <section class="content-section">
-            <h2 class="section-title">Application Scenarios</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Art Galleries & Museums</h3>
-                    <p>Transform silent exhibitions into vibrant salons of ideas. Discover others who share your artistic "Oshi" and engage in meaningful dialogue and spontaneous collaboration.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Research & Academic Conferences</h3>
-                    <p>Where interdisciplinary "Oshi" for complex problems can spark breakthrough innovation. Connect researchers across fields based on shared intellectual passion.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💼</div>
-                    <h3>Corporate Innovation Hubs</h3>
-                    <p>Break down departmental silos by connecting employees through shared "Oshigatsu"—the inner drive to solve meaningful challenges through collaboration.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Startup Ecosystems</h3>
-                    <p>Match founders not just by skills, but by shared passion for solving specific problems. Find your technical co-founder through aligned "Oshi" for meaningful ventures.</p>
-                </div>
+            <p>
+              AIそのものを価値にしたいわけではありません。
+              職種、スキル、キーワードなどの明示的な条件であれば、
+              従来の検索やルールベースの仕組みでも発見できます。
+              PIXEL PAWが検証したいのは、
+              「経験」「関心」「現在取り組んでいること」
+              「困っていること」「やってみたいこと」など、
+              複数の文脈を横断したときに、AIが人間だけでは
+              見つけにくい組み合わせを発見できるのか、
+              そしてそれが実際の行動につながるのか、という問いです。
+            </p>
+
+          </div>
+
+          <div class="en">
+
+            <div class="ai-question">
+              Can AI discover
+              <span>possibilities people would not search for?</span>
             </div>
-        </section>
 
-        <section class="content-section">
-            <h2 class="section-title">Global Strategy</h2>
-            <div class="strategy-section">
-                <p><strong>Concept Forged in Tokyo:</strong> Our protocol was calibrated in one of the world's most advanced human-tech ecosystems, sharpening its application in complex, real-world environments.</p>
-                <p><strong>Engineering for Global Scale:</strong> We're building infrastructure designed for worldwide adoption, leveraging deep-tech talent and global connectivity to create a universal protocol for human collaboration.</p>
+            <p>
+              AI itself is not the value.
+              Conventional search can already find people based on
+              explicit attributes such as skills and keywords.
+              PIXEL PAW is testing whether AI can reason across
+              multiple forms of context — experience, interests,
+              current projects, challenges and things people want to try —
+              and surface combinations that people would not have
+              searched for themselves.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CURRENT PROGRESS -->
+    <section id="progress">
+
+      <div class="container">
+
+        <div class="section-label">
+          06 / Current Progress — 2026
+        </div>
+
+        <div class="jp">
+
+          <h2>
+            今は「アイデアを語る段階」から、
+            <br>
+            <span>検証する段階</span>へ。
+          </h2>
+
+          <p class="section-intro">
+            PIXEL PAWは現在、初期検証フェーズです。
+            AIによるSerendipity Discoveryが実際の共同行動や
+            組織・都市にとっての価値につながるかを検証しています。
+          </p>
+
+        </div>
+
+        <div class="en">
+
+          <h2>
+            From explaining the idea
+            <br>
+            to <span>testing the hypothesis.</span>
+          </h2>
+
+          <p class="section-intro">
+            PIXEL PAW is currently in an early validation stage.
+            We are testing whether AI-powered discovery can lead to
+            real shared action and measurable value.
+          </p>
+
+        </div>
+
+
+        <div class="progress-grid">
+
+          <div class="progress-card">
+            <span class="tag">TOKYO NEW</span>
+
+            <h3>東京都「TOKYO NEW」</h3>
+
+            <p class="jp">
+              東京都の女性起業家支援プログラムに採択。
+              東京を拠点に事業仮説とエコシステム連携を検証しています。
+            </p>
+
+            <p class="en">
+              Selected for the Tokyo Metropolitan Government's
+              women entrepreneur support program.
+            </p>
+          </div>
+
+
+          <div class="progress-card">
+            <span class="tag">SOCIAL X</span>
+
+            <h3>Social X 第2期</h3>
+
+            <p class="jp">
+              Social X第2期に採択。
+              企業・自治体・地域との共創可能性を探索しています。
+            </p>
+
+            <p class="en">
+              Selected for Social X Cohort 2,
+              exploring co-creation with companies,
+              municipalities and communities.
+            </p>
+          </div>
+
+
+          <div class="progress-card">
+            <span class="tag">FIELD VALIDATION</span>
+
+            <h3>地域・都市での検証</h3>
+
+            <p class="jp">
+              福山市などの地域・若者向けプロジェクトを含め、
+              「既存のコミュニティに存在するが、まだ活用されていない
+              つながり」をどのように発見・活性化できるかを検討しています。
+            </p>
+
+            <p class="en">
+              Exploring how existing communities and urban ecosystems
+              can activate connections that are currently underused.
+            </p>
+          </div>
+
+
+          <div class="progress-card">
+            <span class="tag">PROTOTYPE</span>
+
+            <h3>AI Serendipity Engine</h3>
+
+            <p class="jp">
+              人・プロジェクト・場所・イベントの文脈を横断して
+              「次に起こり得ること」を発見するプロトタイプを開発中です。
+            </p>
+
+            <p class="en">
+              Developing an early prototype exploring how AI can
+              discover what could happen next across people,
+              projects, places and events.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EVOLUTION -->
+    <section>
+
+      <div class="container">
+
+        <div class="section-label">
+          07 / Evolution
+        </div>
+
+        <div class="jp">
+
+          <h2>
+            試行錯誤から、
+            <br>
+            現在のPIXEL PAWへ。
+          </h2>
+
+          <p class="section-intro">
+            PIXEL PAWは最初から現在の形だったわけではありません。
+            これまでの研究やプロトタイプを通じて、
+            「どの技術を使うか」よりも「どんな可能性を生み出すか」
+            という問いへ焦点を移してきました。
+          </p>
+
+        </div>
+
+        <div class="en">
+
+          <h2>
+            From experimentation
+            <br>
+            to today's PIXEL PAW.
+          </h2>
+
+          <p class="section-intro">
+            PIXEL PAW has evolved through research and experimentation.
+            The focus has gradually shifted from the technology itself
+            toward the question of what new possibilities technology
+            can help create.
+          </p>
+
+        </div>
+
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+
+            <div class="timeline-year">RESEARCH</div>
+
+            <h3>Urban Serendipity / Heterotopia</h3>
+
+            <p class="jp">
+              東京の都市空間における偶発的な出会いと、
+              場所が人の行動に与える影響について研究。
+            </p>
+
+            <p class="en">
+              Research into urban serendipity, heterotopia
+              and how places influence human encounters.
+            </p>
+
+          </div>
+
+
+          <div class="timeline-item">
+
+            <div class="timeline-year">EARLIER PROTOTYPES</div>
+
+            <h3>AR / Oshi / Web3 / SBT</h3>
+
+            <p class="jp">
+              AR、Oshi文化、デジタルアイデンティティ、
+              Web3 / SBTなどを用いた「人と人が自然に出会い、
+              共創する仕組み」を探索。
+            </p>
+
+            <p class="en">
+              Explored AR, Oshi culture, digital identity,
+              Web3 and SBT concepts as possible mechanisms
+              for meaningful collaboration.
+            </p>
+
+          </div>
+
+
+          <div class="timeline-item">
+
+            <div class="timeline-year">2026 → NOW</div>
+
+            <h3>AI × Human Context × Place</h3>
+
+            <p class="jp">
+              現在は、AIによるSerendipity Discoveryと
+              Shared Actionに焦点を絞り、
+              実際の企業・都市・コミュニティ環境での
+              検証を進めています。
+            </p>
+
+            <p class="en">
+              Today, the focus is AI-powered Serendipity Discovery
+              and Shared Action, tested in real-world corporate,
+              urban and community environments.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FUTURE -->
+    <section>
+
+      <div class="container">
+
+        <div class="section-label">
+          08 / Future
+        </div>
+
+        <div class="jp">
+
+          <h2>
+            人を探すのではなく、
+            <br>
+            <span>次に起こる可能性を探す。</span>
+          </h2>
+
+          <p class="section-intro">
+            長期的には、PIXEL PAWを単なるマッチングサービスではなく、
+            都市やコミュニティに存在する「まだ見えていない可能性」を
+            発見し、行動や共創につなげるインテリジェンスレイヤーへ
+            発展させることを目指しています。
+          </p>
+
+        </div>
+
+        <div class="en">
+
+          <h2>
+            Don't just discover people.
+            <br>
+            <span>Discover what could happen next.</span>
+          </h2>
+
+          <p class="section-intro">
+            In the long term, PIXEL PAW aims to become an intelligence
+            layer for cities and communities — discovering hidden
+            possibilities and turning them into action and co-creation.
+          </p>
+
+        </div>
+
+
+        <div class="flow">
+
+          <div class="flow-card">
+            <div class="flow-number">01</div>
+            <h3>Space Discovery</h3>
+            <p class="jp">どこに可能性があるか。</p>
+            <p class="en">Where could something happen?</p>
+          </div>
+
+          <div class="flow-card">
+            <div class="flow-number">02</div>
+            <h3>Human Discovery</h3>
+            <p class="jp">誰が関わる可能性があるか。</p>
+            <p class="en">Who could be involved?</p>
+          </div>
+
+          <div class="flow-card">
+            <div class="flow-number">03</div>
+            <h3>Role Discovery</h3>
+            <p class="jp">どんな役割が生まれるか。</p>
+            <p class="en">What roles could emerge?</p>
+          </div>
+
+          <div class="flow-card">
+            <div class="flow-number">04</div>
+            <h3>Co-creation Discovery</h3>
+            <p class="jp">何が一緒につくれるか。</p>
+            <p class="en">What could be created together?</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOUNDER -->
+    <section id="founder">
+
+      <div class="container">
+
+        <div class="section-label">
+          09 / Founder
+        </div>
+
+        <div class="founder">
+
+          <div>
+
+            <div class="founder-name">
+              Yeung Hoi Ting
             </div>
-        </section>
 
-        <section class="content-section">
-            <h2 class="section-title">Our Journey So Far</h2>
-            <ul class="achievement-list">
-                <li><strong>Industry Engagement:</strong> Direct prototype challenge from CEO of STYLY (Japan's leading XR platform)</li>
-                <li><strong>Concept Validation:</strong> Core mechanics demonstrated and gained significant traction at <a href="https://www.tokyonode.jp/lab/events/20250619_01/index.html" target="_blank" class="highlight-link">TOKYO NODE "XR HACKATHON" supported by Niantic Spatial</a></li>
-                <li><strong>Research Foundation:</strong> Explores "Heterotopia" and urban serendipity in Tokyo through locative media. Featured in the Leonardo Abstracts Service (Yeung, H.T. [ID: 4136])</li>
-                <li><strong>Cultural Insight:</strong> Mapped the "Oshi-katsu" model as universal framework for meaningful co-creation</li>
-            </ul>
-
-            <!-- 🚀 ROCKET PITCH SECTION with each category on its own line -->
-            <div style="background: linear-gradient(145deg, #fff5f0, #fff); border: 2px solid #ffd3b5; border-radius: 24px; padding: 2.5rem; margin: 3rem 0 1rem 0; text-align: center; box-shadow: 0 15px 30px rgba(255,107,107,0.15);">
-                
-                <span style="display: inline-block; background: linear-gradient(135deg, #ff6b6b, #feca57); color: white; font-size: 0.8rem; font-weight: bold; padding: 0.2rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
-                    𝗘𝘅𝗰𝗹𝘂𝘀𝗶𝘃𝗲𝗹𝘆 𝗼𝗻𝘀𝗶𝘁𝗲 <span style="display: inline-block; background: #5b21b6; color: white; font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 12px; margin-left: 0.5rem; vertical-align: middle; letter-spacing: 0.3px;">in-person only</span>
-                </span>
-                
-                <h3 style="font-size: 2rem; color: #5b21b6; margin-bottom: 0.5rem;">🚀 Rocket Pitch Night @ Venture Café Tokyo</h3>
-                
-                <div style="font-size: 1.2rem; color: #ff6b6b; font-weight: 600; margin-bottom: 1.5rem;">🗓️ 23 April, 2026</div>
-                
-                <!-- Main description -->
-                <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto 1.5rem auto;">Pixel Paw has been selected as one of <strong>10 presenters in the IT/ AI/ IoT/ AR & VR category</strong> — we're excited to share our vision live.</p>
-                
-                <a href="https://community.venturecafetokyo.org/events/713?utm_source=Venture+Caf%C3%A9+Tokyo&utm_campaign=bb41f544d7-EMAIL_CAMPAIGN_2026_01_13_04_46_COPY_01&utm_medium=email&utm_term=0_-c2e37d2941-564058163" target="_blank" style="display: inline-block; background: #ff6b6b; color: white; font-weight: 600; padding: 0.9rem 2.2rem; border-radius: 40px; text-decoration: none; box-shadow: 0 8px 20px rgba(255,107,107,0.4); transition: all 0.2s ease; margin-bottom: 1rem;">RSVP →</a>
-                
-                <!-- Grey text with each category on its own line -->
-                <div style="font-size: 0.85rem !important; color: #6a737d !important; line-height: 1.5; max-width: 700px; margin: 0 auto;">
-                    <p style="font-size: 0.85rem !important; color: #6a737d !important; margin: 0;">
-                        <strong>ROCKET PITCH NIGHT TOKYO: BLOOM 2026</strong> — hosted by Venture Café Tokyo (innovation community across 17 cities) connecting entrepreneurs, investors & supporters to energize Japan's startup scene. This edition selected <strong>40 presenters</strong> across 4 categories:
-                    </p>
-                    <div style="margin: 0.5rem 0 0 0; text-align: left; display: inline-block;">
-                        <p style="font-size: 0.85rem !important; color: #6a737d !important; margin: 0.25rem 0;">🌍 Social, Education, Agriculture & Food</p>
-                        <p style="font-size: 0.85rem !important; color: #6a737d !important; margin: 0.25rem 0;">💼 Enterprise, Operations, Productivity & Security</p>
-                        <p style="font-size: 0.85rem !important; color: #6a737d !important; margin: 0.25rem 0;">🤖 IT/ AI/ IoT/ AR & VR</p>
-                        <p style="font-size: 0.85rem !important; color: #6a737d !important; margin: 0.25rem 0;">🌱 Environment, Energy, Medical, Manufacturing, Healthcare, Air & Space</p>
-                    </div>
-                    <p style="font-size: 0.85rem !important; color: #6a737d !important; margin-top: 0.75rem;">
-                        U-18 PITCH runs concurrently · Official partner event of SusHi Tech Tokyo 2026 (Apr 27-29)
-                    </p>
-                </div>
+            <div class="founder-role">
+              Founder / Product & Ecosystem Strategy
             </div>
-        </section>
 
-        <section class="content-section">
-            <h2 class="section-title">About the Founder</h2>
-            <p><strong>Yeung Hoi Ting</strong> is a product strategist and protocol researcher focused on building meaningful human connections. With an Erasmus Mundus Joint Master's in Media Arts Cultures, she leverages spatial computing to infuse playfulness into urban co-creation, transforming how people connect and collaborate in shared spaces.</p>
-            
-            <!-- Art Basel Hong Kong 2026 - Field Research -->
-            <div style="background: var(--light); padding: 1.2rem 1.5rem; border-radius: 12px; margin: 1.2rem 0; border-left: 4px solid var(--accent);">
-                <p style="margin-bottom: 0.25rem;"><strong>🎨 Field Research</strong> — Art Basel Hong Kong 2026 (VIP Team)</p>
-                <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 0;">Conducting on-site field research on audience engagement and spatial experience — informing Pixel Paw's gallery and museum applications.</p>
+          </div>
+
+
+          <div>
+
+            <p class="founder-text jp">
+
+              香港出身。クリエイティブメディアを学んだ後、
+              ヨーロッパでMedia Arts Culturesの修士課程を経験。
+              日本では山口県・YCAMでのインターンシップをきっかけに、
+              アート、テクノロジー、都市、コミュニティが交わる環境に
+              継続的に関わってきました。
+
+              <br><br>
+
+              自分自身、異なる場所・分野・人との偶然の出会いから
+              キャリアやプロジェクトが生まれてきた経験があります。
+
+              <br><br>
+
+              その経験から、
+              <strong>
+                「偶然だけど意味のある出会い」を
+                もっと多くの人が経験できる仕組み
+              </strong>
+              をつくれないかと考え、PIXEL PAWを始めました。
+
+            </p>
+
+
+            <p class="founder-text en">
+
+              Born in Hong Kong, Hoi Ting studied Creative Media
+              and later completed a European joint master's in
+              Media Arts Cultures.
+
+              <br><br>
+
+              Her connection with Japan began through an internship
+              at YCAM in Yamaguchi, followed by experiences across
+              art, technology, cities and communities in Europe and Japan.
+
+              <br><br>
+
+              Her own career has been shaped by unexpected encounters
+              across places, disciplines and people.
+
+              <br><br>
+
+              PIXEL PAW started from a simple question:
+              <strong>
+                Can we design more opportunities for meaningful
+                encounters to happen?
+              </strong>
+
+            </p>
+
+
+            <div class="founder-path">
+
+              <span class="path-item">Hong Kong</span>
+              <span class="path-item">Creative Media</span>
+              <span class="path-item">YCAM / Japan</span>
+              <span class="path-item">Europe</span>
+              <span class="path-item">Media Arts Cultures</span>
+              <span class="path-item">Tokyo</span>
+              <span class="path-item">PIXEL PAW</span>
+
             </div>
-            
-            <p><strong>Languages:</strong> English, Cantonese, Mandarin (fluent); Japanese (business)</p>
-        </section>
 
-        <section id="contact" class="content-section contact-section">
-            <h2 class="section-title">Build With Us</h2>
-            <p>Seeking technical co-founders, advisors, and accelerator partners to architect the infrastructure for passion-driven human collaboration.</p>
-            <p><strong>Contact:</strong> <a href="mailto:h2t2y2@gmail.com" class="highlight-link">h2t2y2@gmail.com</a></p>
-        </section>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="contact">
+
+      <div class="container">
+
+        <div class="section-label">
+          10 / Build With Us
+        </div>
+
+        <div class="jp">
+
+          <h2>
+            まだ見えていない可能性を、
+            <br>
+            一緒に検証しませんか？
+          </h2>
+
+          <p>
+            企業、自治体、大学、施設、コミュニティ、
+            そして技術パートナーとの実証・共創を探しています。
+          </p>
+
+        </div>
+
+        <div class="en">
+
+          <h2>
+            What possibilities
+            <br>
+            could we discover together?
+          </h2>
+
+          <p>
+            We are exploring pilots and collaborations with
+            companies, cities, universities, facilities,
+            communities and technology partners.
+          </p>
+
+        </div>
+
+        <a
+          href="mailto:hi@pixelpaw.org"
+          class="btn btn-primary"
+        >
+          hi@pixelpaw.org
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div>
+        © 2026 PIXEL PAW
+      </div>
+
+      <div>
+        AI × Human Context × Place
+      </div>
+
     </div>
 
-    <footer>
-        <p>Pixel Paw - Building the passion discovery infrastructure for the next 100 years of human collaboration</p>
-    </footer>
+  </footer>
+
+
+  <script>
+
+    /* NAV SCROLL EFFECT */
+
+    const nav = document.getElementById("nav");
+
+    window.addEventListener("scroll", () => {
+
+      if (window.scrollY > 20) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+
+    });
+
+
+    /* LANGUAGE SWITCH */
+
+    function toggleLanguage() {
+
+      document.body.classList.toggle("english");
+
+      const button = document.getElementById("langButton");
+
+      if (document.body.classList.contains("english")) {
+        button.textContent = "JP";
+        document.documentElement.lang = "en";
+      } else {
+        button.textContent = "EN";
+        document.documentElement.lang = "ja";
+      }
+
+    }
+
+  </script>
+
 </body>
 </html>
