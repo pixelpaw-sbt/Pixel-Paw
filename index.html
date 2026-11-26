@@ -3,30 +3,1821 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PIXEL PAW</title>
+
+  <title>PIXEL PAW｜まだ見えていない可能性を、見つける。</title>
+
+  <meta
+    name="description"
+    content="PIXEL PAWは、AIがあなたの興味や関心と、その場にいる人・場所・瞬間を重ね合わせ、新しい出会いを提案する、共創のためのプラットフォームです。"
+  >
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PIXEL PAW">
+  <meta property="og:title" content="PIXEL PAW｜まだ見えていない可能性を、見つける。">
+  <meta property="og:description" content="AI × 人 × 場所 × 瞬間。人と、場所と、瞬間が重なるところから、まだ見えていない可能性が生まれる。">
+  <meta property="og:url" content="https://pixelpaw-sbt.github.io/Pixel-Paw/">
+  <meta property="og:image" content="https://pixelpaw-sbt.github.io/Pixel-Paw/images/ogp.jpg">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#7fb6e6">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='30%25' r='75%25'%3E%3Cstop offset='0' stop-color='%23e9f7a8'/%3E%3Cstop offset='1' stop-color='%2384cf4d'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='13' fill='url(%23g)'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&family=Zen+Maru+Gothic:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
+
+    /* ---------------------------------------------------------
+       BASE
+    --------------------------------------------------------- */
+
+    :root {
+      --navy: #2c5384;
+      --ink: #4d6c8a;
+      --muted: #6f8ba4;
+      --teal: #1f9fae;
+      --teal-soft: #7fcfd8;
+      --line: #d5e6f2;
+      --paper: #f6fafd;
+      --card: rgba(255, 255, 255, 0.88);
+      --lime-1: #e6f6a2;
+      --lime-2: #86cf4f;
+
+      --a: #f2a53a;
+      --b: #3fbf8a;
+      --c: #2fa9a0;
+      --d: #8c8fe0;
+
+      --font-body: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans",
+        "Yu Gothic", "Meiryo", sans-serif;
+      --font-hand: "Zen Kurenaido", "Zen Maru Gothic", "Hiragino Maru Gothic ProN",
+        cursive, sans-serif;
+
+      --wrap: 1120px;
+      --gutter: clamp(20px, 5vw, 56px);
     }
 
-    img {
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.9;
+      letter-spacing: 0.04em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img,
+    svg {
       display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: calc(var(--wrap) + var(--gutter) * 2);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .nowrap {
+      display: inline-block;
+    }
+
+    @media (max-width: 1180px) {
+
+      .pc-only {
+        display: none;
+      }
+
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .hand {
+      font-family: var(--font-hand);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      line-height: 1.7;
+    }
+
+    .eyebrow {
+      display: flex;
+      gap: 0.9em;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      color: var(--teal);
+    }
+
+    .eyebrow span:nth-child(2) {
+      opacity: 0.6;
+    }
+
+    .section-title {
+      font-size: clamp(1.4rem, 1.05rem + 1.1vw, 1.75rem);
+      font-weight: 500;
+      line-height: 1.55;
+      letter-spacing: 0.08em;
+      color: var(--navy);
+    }
+
+    .section-title--latin {
+      font-size: clamp(1.9rem, 1.3rem + 2vw, 2.5rem);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+    }
+
+    .lead {
+      margin-top: 22px;
+      font-size: clamp(1rem, 0.95rem + 0.3vw, 1.12rem);
+      line-height: 2;
+      color: var(--navy);
+    }
+
+    .body-text {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      line-height: 2.05;
+      color: var(--ink);
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(56px, 8vw, 96px) 0;
+      background:
+        radial-gradient(60% 90% at 88% 0%, #e2f0fb 0%, rgba(226, 240, 251, 0) 62%),
+        radial-gradient(50% 80% at 4% 100%, #e8f6f8 0%, rgba(232, 246, 248, 0) 60%),
+        var(--paper);
+    }
+
+
+    /* ---------------------------------------------------------
+       SCROLL REVEAL (only when JavaScript is running)
+    --------------------------------------------------------- */
+
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .js .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+    }
+
+
+    /* ---------------------------------------------------------
+       HEADER
+    --------------------------------------------------------- */
+
+    .site-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      padding: 22px 0;
+    }
+
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.12rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .logo::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, var(--lime-1), var(--lime-2));
+      box-shadow: 0 0 14px rgba(190, 240, 120, 0.7);
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 28px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+    }
+
+    .site-nav a {
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 0 1px 10px rgba(30, 80, 140, 0.55);
+      opacity: 0.92;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+
+    /* ---------------------------------------------------------
+       HERO
+    --------------------------------------------------------- */
+
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      min-height: clamp(460px, 44vw, 720px);
+      overflow: hidden;
+      color: #fff;
+      background: linear-gradient(180deg, #5f9fe0 0%, #a9d2f3 55%, #dcefd8 100%);
+    }
+
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 100%;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(30, 78, 140, 0.42) 0%, rgba(30, 78, 140, 0) 24%),
+        linear-gradient(100deg, rgba(38, 92, 160, 0.5) 0%, rgba(38, 92, 160, 0.16) 42%, rgba(38, 92, 160, 0) 62%);
+      pointer-events: none;
+    }
+
+    .hero .wrap {
+      position: relative;
+      z-index: 2;
+      padding-top: clamp(96px, 10vw, 138px);
+      padding-bottom: 48px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 1.2rem + 3.2vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: 0.16em;
+      text-shadow: 0 2px 22px rgba(24, 72, 134, 0.5);
+    }
+
+    .hero-sub {
+      margin-top: 18px;
+      font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.2rem);
+      letter-spacing: 0.16em;
+      text-shadow: 0 1px 14px rgba(24, 72, 134, 0.6);
+    }
+
+    .hero-note {
+      position: absolute;
+      z-index: 2;
+      top: 21%;
+      left: 56%;
+      font-size: clamp(1rem, 0.85rem + 0.7vw, 1.4rem);
+      white-space: nowrap;
+      color: #2f6ea3;
+      transform: rotate(-9deg);
+      text-shadow: 0 0 14px rgba(255, 255, 255, 0.9), 0 0 4px rgba(255, 255, 255, 0.9);
+    }
+
+
+    /* ---------------------------------------------------------
+       01 CONCEPT
+    --------------------------------------------------------- */
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(32px, 5vw, 64px);
+      align-items: center;
+    }
+
+    .concept-visual {
+      position: relative;
+      padding-top: 64px;
+    }
+
+    .concept-note {
+      position: absolute;
+      top: 0;
+      left: 22%;
+      font-size: 1.05rem;
+      color: #3a78a8;
+      transform: rotate(-7deg);
+      white-space: nowrap;
+    }
+
+    .circles {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .circle {
+      flex: 0 0 27.5%;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border: 1.5px solid var(--ring);
+      border-radius: 50%;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow:
+        0 0 26px color-mix(in srgb, var(--ring) 32%, transparent),
+        inset 0 0 22px rgba(255, 255, 255, 0.85);
+    }
+
+    .circle + .circle {
+      margin-left: -3.3%;
+    }
+
+    .circle:nth-child(1) { --ring: #86d9e6; }
+    .circle:nth-child(2) { --ring: #9fe2c2; }
+    .circle:nth-child(3) { --ring: #f0d98a; }
+    .circle:nth-child(4) { --ring: #b7a8ee; }
+
+    .circle svg {
+      width: 30px;
+      height: 30px;
+      color: var(--icon);
+    }
+
+    .circle:nth-child(1) { --icon: #2b8f9c; }
+    .circle:nth-child(2) { --icon: #2f6f8f; }
+    .circle:nth-child(3) { --icon: #2f8f86; }
+    .circle:nth-child(4) { --icon: #6a63c6; }
+
+    .circle-name {
+      margin-top: 8px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+    }
+
+    .circle-text {
+      margin-top: 4px;
+      font-size: 0.7rem;
+      line-height: 1.75;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+
+
+    /* ---------------------------------------------------------
+       02 CO-CREATION MAP
+    --------------------------------------------------------- */
+
+    .map-section {
+      position: relative;
+      overflow: hidden;
+      background: #dcecf8;
+    }
+
+    .map-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .map-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 60% 50%;
+    }
+
+    .map-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(240, 248, 253, 0.97) 0%, rgba(240, 248, 253, 0.9) 24%, rgba(240, 248, 253, 0.25) 46%, rgba(240, 248, 253, 0) 60%),
+        linear-gradient(180deg, rgba(246, 250, 253, 0.9) 0%, rgba(246, 250, 253, 0) 12%, rgba(246, 250, 253, 0) 88%, rgba(246, 250, 253, 0.9) 100%);
+    }
+
+    .map-stage {
+      position: relative;
+      width: 100%;
+      max-width: calc(var(--wrap) + var(--gutter) * 2);
+      height: 620px;
+      margin: 0 auto;
+    }
+
+    .map-copy {
+      position: absolute;
+      top: 48px;
+      left: var(--gutter);
+      width: 36%;
+    }
+
+    @media (min-width: 1181px) {
+
+      .map-copy .section-title {
+        font-size: min(1.55rem, 2vw);
+        letter-spacing: 0.05em;
+      }
+
+      .map-copy .body-text {
+        font-size: 0.86rem;
+      }
+
+    }
+
+    .map-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.95));
+      pointer-events: none;
+    }
+
+    .map-lines line {
+      stroke: rgba(255, 255, 255, 0.92);
+      stroke-width: 1.4;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .map-spark {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      margin: -7px 0 0 -7px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow:
+        0 0 0 5px rgba(255, 255, 255, 0.35),
+        0 0 22px 10px var(--glow, rgba(150, 215, 255, 0.85));
+    }
+
+    .map-hub {
+      position: absolute;
+      left: 59%;
+      top: 46%;
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      margin: -27px 0 0 -27px;
+      border-radius: 50%;
+      color: #fff;
+      background: #5fb4bf;
+      box-shadow:
+        0 0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 0 24px rgba(255, 255, 255, 0.22),
+        0 0 46px 22px rgba(255, 255, 255, 0.85);
+    }
+
+    .map-hub svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .map-hub.map-hub-mobile {
+      display: none;
+    }
+
+    .map-card {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 21%;
+      min-width: 204px;
+      padding: 10px 12px 10px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 0 10px 30px rgba(70, 120, 170, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .map-card--exhibition { left: 38.5%; top: 6%; }
+    .map-card--event      { left: 61.5%; top: 6.5%; }
+    .map-card--cafe       { left: 76.5%; top: 27.5%; }
+    .map-card--people     { left: 35%;   top: 45%; }
+    .map-card--project    { left: 65%;   top: 65%; }
+
+    .map-thumb {
+      flex: 0 0 68px;
+      width: 68px;
+      height: 56px;
+      border-radius: 9px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #cfe4f6, #e7d9f6);
+    }
+
+    .map-thumb--people {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      place-items: center;
+      padding: 4px;
+      background: linear-gradient(135deg, #e3f1fb, #eef7ee);
+    }
+
+    .map-thumb--people svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .map-card-body {
+      min-width: 0;
+    }
+
+    .map-card-kind {
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.04em;
+      color: var(--navy);
+    }
+
+    .map-card-text {
+      font-size: 0.68rem;
+      line-height: 1.6;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    .map-card-place {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 3px;
+      font-size: 0.66rem;
+      line-height: 1.5;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .map-card-place svg {
+      flex: none;
+      width: 11px;
+      height: 11px;
+      color: var(--teal);
+    }
+
+    .recommend {
+      position: absolute;
+      left: var(--gutter);
+      top: 72%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 39%;
+      min-width: 400px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 12px 34px rgba(70, 120, 170, 0.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .recommend-avatar {
+      flex: none;
+      width: 46px;
+      height: 46px;
+    }
+
+    .recommend-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .recommend-title {
+      font-size: 0.76rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--navy);
+    }
+
+    .recommend-text {
+      margin-top: 4px;
+      font-size: 0.74rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .button {
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 16px;
+      border: 1px solid var(--teal-soft);
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      white-space: nowrap;
+      color: #24607a;
+      background: rgba(255, 255, 255, 0.9);
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .button svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      color: #fff;
+      background: var(--teal);
+      transform: translateY(-1px);
+    }
+
+    .map-zoom {
+      position: absolute;
+      right: var(--gutter);
+      top: 69%;
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      color: #fff;
+    }
+
+    .map-zoom-pm {
+      display: grid;
+      width: 30px;
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      background: rgba(140, 190, 225, 0.35);
+    }
+
+    .map-zoom-pm span,
+    .map-zoom-locate {
+      display: grid;
+      place-items: center;
+      height: 28px;
+    }
+
+    .map-zoom-pm span + span {
+      border-top: 1.5px solid rgba(255, 255, 255, 0.95);
+    }
+
+    .map-zoom-locate {
+      width: 30px;
+      height: 30px;
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      background: rgba(140, 190, 225, 0.35);
+    }
+
+    .map-zoom svg {
+      width: 15px;
+      height: 15px;
+    }
+
+
+    /* ---------------------------------------------------------
+       03 EXPERIENCE
+    --------------------------------------------------------- */
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.5fr) minmax(0, 1fr);
+      gap: clamp(28px, 4vw, 48px);
+    }
+
+    .flow-wrap {
+      position: relative;
+      padding-top: 44px;
+    }
+
+    .flow-note {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 1rem;
+      color: #3a78a8;
+      transform: rotate(-3deg);
+      white-space: nowrap;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0 30px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .flow-step {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flow-step:nth-child(1) { --accent: var(--a); }
+    .flow-step:nth-child(2) { --accent: var(--b); }
+    .flow-step:nth-child(3) { --accent: var(--c); }
+    .flow-step:nth-child(4) { --accent: var(--d); }
+
+    .flow-step + .flow-step::before {
+      content: "";
+      position: absolute;
+      top: 132px;
+      left: -24px;
+      width: 18px;
+      height: 14px;
+      background: no-repeat center / contain
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 14' fill='none' stroke='%237fb4cf' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 7h15M10.5 1.5 16 7l-5.5 5.5'/%3E%3C/svg%3E");
+    }
+
+    .flow-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .flow-letter {
+      font-family: var(--font-hand);
+      font-size: 2.6rem;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .flow-name {
+      font-size: 0.86rem;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+    }
+
+    .flow-step:nth-child(1) .flow-name {
+      color: var(--teal);
+    }
+
+    .flow-card {
+      flex: 1;
+      min-height: 164px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 6px 20px rgba(110, 160, 200, 0.1);
+    }
+
+    .flow-card img {
       width: 100%;
       height: auto;
+      aspect-ratio: 4 / 3;
+      border-radius: 7px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #cfe4f6, #f6e9d6);
     }
+
+    .flow-card p {
+      margin-top: 8px;
+      font-size: 0.65rem;
+      line-height: 1.85;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    .tags {
+      display: grid;
+      gap: 5px;
+      padding: 2px 0 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .tags li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 2px 12px 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      line-height: 1.7;
+      color: var(--ink);
+      background: rgba(235, 244, 251, 0.9);
+    }
+
+    .tags li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 1.5px solid #9cc4dd;
+    }
+
+    .avatars {
+      display: flex;
+      gap: 5px;
+      padding: 8px 0 2px;
+    }
+
+    .avatars svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .flow-caption {
+      margin-top: 12px;
+      font-size: 0.7rem;
+      line-height: 1.85;
+      color: var(--ink);
+    }
+
+
+    /* ---------------------------------------------------------
+       04 PRIVACY & TRUST
+    --------------------------------------------------------- */
+
+    .privacy {
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(300px, 28vw, 400px);
+      padding: clamp(40px, 5vw, 60px) 0 clamp(56px, 7vw, 84px);
+      background: #edf5fb;
+    }
+
+    .privacy-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 100% 60%;
+    }
+
+    .privacy::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(246, 250, 253, 0.96) 0%, rgba(246, 250, 253, 0.86) 36%, rgba(246, 250, 253, 0) 62%),
+        linear-gradient(180deg, rgba(246, 250, 253, 0.95) 0%, rgba(246, 250, 253, 0) 22%);
+      pointer-events: none;
+    }
+
+    .privacy .wrap {
+      position: relative;
+      z-index: 2;
+    }
+
+    .privacy-copy {
+      max-width: 430px;
+    }
+
+    .privacy .section-title {
+      font-size: clamp(1.3rem, 1rem + 1.1vw, 1.65rem);
+      letter-spacing: 0.14em;
+    }
+
+    .privacy .body-text {
+      font-size: 0.8rem;
+    }
+
+    .privacy-note {
+      position: absolute;
+      z-index: 2;
+      top: 30%;
+      left: 46%;
+      font-size: clamp(1.1rem, 0.9rem + 0.9vw, 1.55rem);
+      color: #4e86b4;
+      transform: rotate(-9deg);
+      white-space: nowrap;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.95), 0 0 4px rgba(255, 255, 255, 0.9);
+    }
+
+
+    /* ---------------------------------------------------------
+       FOOTER
+    --------------------------------------------------------- */
+
+    .site-footer {
+      padding: 28px 0 34px;
+      border-top: 1px solid #e3eef6;
+      background: #fbfdfe;
+    }
+
+    .site-footer .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 32px;
+    }
+
+    .site-footer .logo {
+      margin-right: auto;
+      color: #5a7690;
+    }
+
+    .site-footer .logo::before {
+      box-shadow: none;
+    }
+
+    .mail {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: #4d6c8a;
+    }
+
+    .mail svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .mail:hover,
+    .mail:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .copyright {
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      color: #7d95aa;
+    }
+
+
+    /* ---------------------------------------------------------
+       RESPONSIVE
+    --------------------------------------------------------- */
+
+    @media (max-width: 1180px) {
+
+      .concept-grid,
+      .experience-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        flex-direction: column;
+        min-height: 560px;
+      }
+
+      .hero .wrap {
+        padding-bottom: 0;
+      }
+
+      .hero-note {
+        position: relative;
+        top: auto;
+        left: auto;
+        align-self: flex-start;
+        margin: 26px 0 0 calc(var(--gutter) + 14%);
+        color: #fff;
+        transform: rotate(-5deg);
+        text-shadow: 0 1px 14px rgba(24, 72, 134, 0.75), 0 0 3px rgba(24, 72, 134, 0.5);
+      }
+
+      .concept-visual {
+        max-width: 620px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* Map: flow layout instead of an absolutely positioned stage */
+
+      .map-section {
+        padding: clamp(56px, 8vw, 96px) 0;
+        background:
+          radial-gradient(60% 90% at 88% 0%, #e2f0fb 0%, rgba(226, 240, 251, 0) 62%),
+          var(--paper);
+      }
+
+      .map-section,
+      .map-stage {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .map-stage {
+        display: contents;
+      }
+
+      .map-copy,
+      .map-card,
+      .recommend {
+        position: static;
+        width: auto;
+        min-width: 0;
+        margin-left: var(--gutter);
+        margin-right: var(--gutter);
+      }
+
+      .map-copy {
+        order: 1;
+        max-width: 560px;
+      }
+
+      .map-bg {
+        position: relative;
+        inset: auto;
+        order: 2;
+        aspect-ratio: 16 / 10;
+        margin: 28px var(--gutter) 0;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 14px 40px rgba(70, 120, 170, 0.2);
+      }
+
+      .map-bg::after {
+        display: none;
+      }
+
+      .map-bg img {
+        object-position: 70% 50%;
+      }
+
+      .map-hub.map-hub-mobile {
+        display: grid;
+        left: 50%;
+        top: 50%;
+      }
+
+      .map-lines,
+      .map-spark,
+      .map-zoom,
+      .map-stage > .map-hub {
+        display: none;
+      }
+
+      .map-card {
+        order: 3;
+        margin-top: 12px;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: #fff;
+        border-color: var(--line);
+      }
+
+      .map-card--exhibition {
+        margin-top: 24px;
+      }
+
+      .recommend {
+        order: 4;
+        margin-top: 24px;
+        background: #fff;
+        border-color: var(--line);
+      }
+
+    }
+
+    @media (max-width: 1180px) and (min-width: 621px) {
+
+      .map-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 14px;
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
+      }
+
+      .map-copy,
+      .map-bg,
+      .recommend {
+        grid-column: 1 / -1;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .map-card {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+    }
+
+    @media (max-width: 760px) {
+
+      .site-nav {
+        display: none;
+      }
+
+      .hero-image {
+        object-position: 42% 100%;
+      }
+
+      .hero-title {
+        font-size: 1.75rem;
+        letter-spacing: 0.1em;
+      }
+
+      .concept-note {
+        position: static;
+        margin-bottom: 20px;
+        white-space: normal;
+        transform: rotate(-3deg);
+      }
+
+      .concept-visual {
+        padding-top: 0;
+      }
+
+      .circles {
+        flex-wrap: wrap;
+        max-width: 380px;
+        margin: 0 auto;
+      }
+
+      .circle {
+        flex-basis: 52%;
+      }
+
+      .circle + .circle {
+        margin-left: 0;
+      }
+
+      .circle:nth-child(even) {
+        margin-left: -4%;
+      }
+
+      .circle:nth-child(n + 3) {
+        margin-top: -4%;
+      }
+
+      .circle-text {
+        font-size: 0.74rem;
+      }
+
+      .flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 18px;
+      }
+
+      .flow-step + .flow-step::before {
+        display: none;
+      }
+
+      .flow-note {
+        white-space: normal;
+      }
+
+      .privacy {
+        padding-bottom: 0;
+      }
+
+      .privacy::after {
+        display: none;
+      }
+
+      .privacy-image {
+        position: relative;
+        inset: auto;
+        height: auto;
+        aspect-ratio: 16 / 10;
+        margin-top: 12px;
+        object-position: 100% 50%;
+      }
+
+      .privacy-note {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 32px var(--gutter) 0;
+        white-space: normal;
+        transform: rotate(-3deg);
+      }
+
+      .site-footer .logo {
+        width: 100%;
+      }
+
+    }
+
+    @media (max-width: 420px) {
+
+      .recommend {
+        flex-wrap: wrap;
+      }
+
+      .recommend-body {
+        flex-basis: calc(100% - 62px);
+      }
+
+      .recommend .button {
+        margin-left: 62px;
+      }
+
+    }
+
   </style>
 </head>
 
-<body>
+<body id="top">
 
-  <img
-    src="images/hmmmmm.png"
-    alt="PIXEL PAW"
-  >
+  <!-- Shared SVG icons -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s6.5-5.6 6.5-10.6A6.5 6.5 0 0 0 5.5 10.4C5.5 15.4 12 21 12 21Z"/>
+        <circle cx="12" cy="10.2" r="2.3"/>
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 7h15M10.5 1.5 16 7l-5.5 5.5"/>
+      </symbol>
+      <symbol id="i-person" viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="16" fill="var(--bg, #dcecf8)"/>
+        <circle cx="16" cy="12.5" r="5.2" fill="var(--skin, #f6d9c4)"/>
+        <path d="M10.6 11.8c.3-4 2.7-5.8 5.6-5.8s5 1.8 5.2 5.6c-1.8-.3-3.6-1.3-4.8-2.8-1.3 1.6-3.5 2.7-6 3Z" fill="var(--hair, #3b4a63)"/>
+        <path d="M5.5 28.2c1.2-5.2 5.2-7.7 10.5-7.7s9.3 2.5 10.5 7.7A16 16 0 0 1 5.5 28.2Z" fill="var(--shirt, #6aa7d6)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+
+  <!-- =========================================================
+       HEADER
+  ========================================================== -->
+
+  <header class="site-header">
+    <div class="wrap">
+
+      <a class="logo" href="#top">PIXEL PAW</a>
+
+      <nav class="site-nav" aria-label="ページ内ナビゲーション">
+        <a href="#concept">Concept</a>
+        <a href="#map">Co-creation Map</a>
+        <a href="#experience">Experience</a>
+        <a href="#privacy">Privacy &amp; Trust</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- =======================================================
+         HERO
+    ======================================================== -->
+
+    <section class="hero">
+
+      <img
+        class="hero-image"
+        src="images/hero.jpg"
+        alt=""
+        width="1536"
+        height="672"
+        fetchpriority="high"
+      >
+
+      <div class="wrap">
+
+        <h1 class="hero-title">
+          まだ見えていない<br>
+          可能性を、見つける。
+        </h1>
+
+        <p class="hero-sub">AI × 人 × 場所 × 瞬間</p>
+
+      </div>
+
+      <p class="hero-note hand">
+        ひとつの出会いが、<br>
+        　新しい景色をつくる。
+      </p>
+
+    </section>
+
+
+    <!-- =======================================================
+         01 CONCEPT
+    ======================================================== -->
+
+    <section class="section" id="concept">
+      <div class="wrap concept-grid">
+
+        <div class="reveal">
+
+          <p class="eyebrow"><span>01</span><span>/</span><span>Concept</span></p>
+
+          <h2 class="section-title section-title--latin">Co-creation Map</h2>
+
+          <p class="lead">
+            人と、場所と、瞬間が重なる。<br>
+            そこから、<span class="nowrap">まだ見えていない可能性が生まれる。</span>
+          </p>
+
+          <p class="body-text">
+            <span class="nowrap">PIXEL PAWは、</span><span class="nowrap">AIが様々な情報をもとに、</span><br class="pc-only"><span class="nowrap">あなたの興味や関心、</span><span class="nowrap">そしてその場にいる</span><span class="nowrap">人たちとの</span><br class="pc-only"><span class="nowrap">新しい出会いを提案する、</span><span class="nowrap">共創のための</span><span class="nowrap">プラットフォームです。</span>
+          </p>
+
+        </div>
+
+        <div class="concept-visual reveal">
+
+          <p class="concept-note hand">
+            AIが、あなたにとっての<br>
+            　“あってほしい出会い”を見つける。
+          </p>
+
+          <ul class="circles">
+
+            <li class="circle">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 3.5c.9 6.3 3.3 11.6 12.5 12.5-9.2.9-11.6 6.2-12.5 12.5-.9-6.3-3.3-11.6-12.5-12.5C12.7 15.1 15.1 9.8 16 3.5Z"/>
+              </svg>
+              <h3 class="circle-name">AI</h3>
+              <p class="circle-text">可能性を見つける<br>きっかけをつくる</p>
+            </li>
+
+            <li class="circle">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="16" cy="10.5" r="5.5"/>
+                <path d="M5.5 27.5c0-5 4.7-7.5 10.5-7.5s10.5 2.5 10.5 7.5Z"/>
+              </svg>
+              <h3 class="circle-name">人</h3>
+              <p class="circle-text">興味・関心・<br>やってみたいこと</p>
+            </li>
+
+            <li class="circle">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 28.5s9-7.6 9-14.7a9 9 0 0 0-18 0c0 7.1 9 14.7 9 14.7Z"/>
+                <circle cx="16" cy="13.5" r="3.2"/>
+              </svg>
+              <h3 class="circle-name">場所</h3>
+              <p class="circle-text">カフェ・街・イベント<br>コミュニティ</p>
+            </li>
+
+            <li class="circle">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="16" cy="16" r="11.5"/>
+                <path d="M16 9.5V16h5.5"/>
+              </svg>
+              <h3 class="circle-name">瞬間</h3>
+              <p class="circle-text">今この時<br>この場所で</p>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =======================================================
+         02 CO-CREATION MAP
+         The map is a visual mock-up: cards and controls are
+         not interactive.
+    ======================================================== -->
+
+    <section class="map-section" id="map">
+
+      <div class="map-bg" aria-hidden="true">
+        <img
+          src="images/map.jpg"
+          alt=""
+          width="1344"
+          height="768"
+          loading="lazy"
+        >
+        <span class="map-hub map-hub-mobile">
+          <svg viewBox="0 0 32 32" fill="currentColor">
+            <circle cx="16" cy="11" r="4.2"/>
+            <path d="M8.5 23.5c0-4.2 3.3-6.5 7.5-6.5s7.5 2.3 7.5 6.5Z"/>
+            <circle cx="6.8" cy="13" r="3"/>
+            <path d="M1.5 22c0-3.2 2.3-5 5.3-5 .9 0 1.7.2 2.4.5-1.7 1.2-2.7 3-2.9 4.5Z"/>
+            <circle cx="25.2" cy="13" r="3"/>
+            <path d="M30.5 22c0-3.2-2.3-5-5.3-5-.9 0-1.7.2-2.4.5 1.7 1.2 2.7 3 2.9 4.5Z"/>
+          </svg>
+        </span>
+      </div>
+
+      <div class="map-stage">
+
+        <div class="map-copy reveal">
+
+          <p class="eyebrow"><span>02</span><span>/</span><span>Co-creation Map</span></p>
+
+          <h2 class="section-title">
+            <span class="nowrap">いま、どこで、</span><span class="nowrap">どんな可能性が</span><br class="pc-only"><span class="nowrap">生まれているのか。</span>
+          </h2>
+
+          <p class="body-text">
+            <span class="nowrap">あなたの興味・関心や</span><span class="nowrap">参加したいイベント、</span><br class="pc-only"><span class="nowrap">その場の情報をもとに、</span><br class="pc-only"><span class="nowrap">新しい出会いや</span><span class="nowrap">コラボレーションの</span><span class="nowrap">可能性を</span><br class="pc-only"><span class="nowrap">マップ上で可視化します。</span>
+          </p>
+
+        </div>
+
+        <svg class="map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="59" y1="46" x2="49" y2="22"/>
+          <line x1="59" y1="46" x2="71" y2="23"/>
+          <line x1="59" y1="46" x2="78" y2="38"/>
+          <line x1="59" y1="46" x2="54" y2="56"/>
+          <line x1="59" y1="46" x2="75" y2="68"/>
+          <line x1="59" y1="46" x2="50" y2="87"/>
+          <line x1="59" y1="46" x2="90" y2="56"/>
+          <line x1="49" y1="22" x2="71" y2="23"/>
+          <line x1="54" y1="56" x2="50" y2="87"/>
+        </svg>
+
+        <span class="map-spark" style="left:52.5%; top:30%" aria-hidden="true"></span>
+        <span class="map-spark" style="left:66.5%; top:31.5%; --glow: rgba(235, 170, 255, 0.85)" aria-hidden="true"></span>
+        <span class="map-spark" style="left:72%; top:40.5%; --glow: rgba(255, 190, 220, 0.85)" aria-hidden="true"></span>
+        <span class="map-spark" style="left:69.5%; top:60.5%" aria-hidden="true"></span>
+        <span class="map-spark" style="left:50%; top:87%; --glow: rgba(255, 235, 170, 0.9)" aria-hidden="true"></span>
+
+        <span class="map-hub" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="currentColor">
+            <circle cx="16" cy="11" r="4.2"/>
+            <path d="M8.5 23.5c0-4.2 3.3-6.5 7.5-6.5s7.5 2.3 7.5 6.5Z"/>
+            <circle cx="6.8" cy="13" r="3"/>
+            <path d="M1.5 22c0-3.2 2.3-5 5.3-5 .9 0 1.7.2 2.4.5-1.7 1.2-2.7 3-2.9 4.5Z"/>
+            <circle cx="25.2" cy="13" r="3"/>
+            <path d="M30.5 22c0-3.2-2.3-5-5.3-5-.9 0-1.7.2-2.4.5 1.7 1.2 2.7 3 2.9 4.5Z"/>
+          </svg>
+        </span>
+
+        <article class="map-card map-card--exhibition">
+          <img class="map-thumb" src="images/thumb-exhibition.jpg" alt="" width="272" height="224" loading="lazy">
+          <div class="map-card-body">
+            <h3 class="map-card-kind">Exhibition</h3>
+            <p class="map-card-text">アートとテクノロジーの展示</p>
+            <p class="map-card-place"><svg aria-hidden="true"><use href="#i-pin"/></svg>YOXO BOX</p>
+          </div>
+        </article>
+
+        <article class="map-card map-card--event">
+          <img class="map-thumb" src="images/thumb-event.jpg" alt="" width="272" height="224" loading="lazy">
+          <div class="map-card-body">
+            <h3 class="map-card-kind">Event</h3>
+            <p class="map-card-text">クリエイティブトーク</p>
+            <p class="map-card-place"><svg aria-hidden="true"><use href="#i-pin"/></svg>YOXO NEXT</p>
+          </div>
+        </article>
+
+        <article class="map-card map-card--cafe">
+          <img class="map-thumb" src="images/thumb-cafe.jpg" alt="" width="272" height="224" loading="lazy">
+          <div class="map-card-body">
+            <h3 class="map-card-kind">Café</h3>
+            <p class="map-card-text">コラボレーションカフェ</p>
+            <p class="map-card-place"><svg aria-hidden="true"><use href="#i-pin"/></svg>みなとみらい</p>
+          </div>
+        </article>
+
+        <article class="map-card map-card--people">
+          <div class="map-thumb map-thumb--people" aria-hidden="true">
+            <svg style="--bg:#dcecf8; --shirt:#6aa7d6; --hair:#3b4a63"><use href="#i-person"/></svg>
+            <svg style="--bg:#fde9d2; --shirt:#f0a868; --hair:#6b4a3a"><use href="#i-person"/></svg>
+            <svg style="--bg:#e2f3e6; --shirt:#63b98c; --hair:#2f3b4d"><use href="#i-person"/></svg>
+            <svg style="--bg:#ece6fa; --shirt:#9a8fe0; --hair:#4a3f5e"><use href="#i-person"/></svg>
+            <svg style="--bg:#fbe3ea; --shirt:#e58aa5; --hair:#5a3d3a"><use href="#i-person"/></svg>
+            <svg style="--bg:#e0f3f5; --shirt:#4fb3bf; --hair:#32414f"><use href="#i-person"/></svg>
+          </div>
+          <div class="map-card-body">
+            <h3 class="map-card-kind">People</h3>
+            <p class="map-card-text">デザイナー・学生</p>
+            <p class="map-card-place"><svg aria-hidden="true"><use href="#i-pin"/></svg>横浜エリア</p>
+          </div>
+        </article>
+
+        <article class="map-card map-card--project">
+          <img class="map-thumb" src="images/thumb-project.jpg" alt="" width="272" height="224" loading="lazy">
+          <div class="map-card-body">
+            <h3 class="map-card-kind">Project</h3>
+            <p class="map-card-text">地域 × XR プロジェクト</p>
+            <p class="map-card-place"><svg aria-hidden="true"><use href="#i-pin"/></svg>YOXO</p>
+          </div>
+        </article>
+
+        <aside class="recommend" aria-label="AIが見つけた、あなたへのおすすめ">
+
+          <svg class="recommend-avatar" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="24" fill="#cfeee6"/>
+            <path d="M24 24V0a24 24 0 0 1 20.8 12Z" fill="#9fd9ee"/>
+            <path d="M24 24 44.8 12a24 24 0 0 1 0 24Z" fill="#bfe6f5"/>
+            <path d="M12 40c1.5-5.5 6-8 12-8s10.5 2.5 12 8a24 24 0 0 1-24 0Z" fill="#5fb7dc"/>
+            <circle cx="24" cy="22" r="10.5" fill="#fff" stroke="#35607f" stroke-width="1.5"/>
+            <path d="M14.5 18.5c2.5-5 6-6.5 9.5-6.5s7 1.5 9.5 6.5" fill="none" stroke="#35607f" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="20" cy="22" r="1.3" fill="#35607f"/>
+            <circle cx="28" cy="22" r="1.3" fill="#35607f"/>
+            <path d="M20.5 26.5c2.2 1.8 4.8 1.8 7 0" fill="none" stroke="#35607f" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+
+          <div class="recommend-body">
+            <h3 class="recommend-title">AIが見つけた、あなたへのおすすめ</h3>
+            <p class="recommend-text">
+              今、横浜で開催中のアートイベントに<br>
+              同じ興味を持つ人が参加しています。
+            </p>
+          </div>
+
+          <a
+            class="button"
+            href="https://score-clean-23536865.figma.site/"
+            target="_blank"
+            rel="noopener"
+          >
+            詳しく見る
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+            <span class="sr-only">（プロトタイプを別タブで開く）</span>
+          </a>
+
+        </aside>
+
+        <div class="map-zoom" aria-hidden="true">
+          <div class="map-zoom-pm">
+            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2.5v11M2.5 8h11"/></svg></span>
+            <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 8h11"/></svg></span>
+          </div>
+          <span class="map-zoom-locate">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="4.2"/><circle cx="8" cy="8" r="1" fill="currentColor"/><path d="M8 1.5v2.3M8 12.2v2.3M1.5 8h2.3M12.2 8h2.3"/></svg>
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         03 EXPERIENCE
+    ======================================================== -->
+
+    <section class="section" id="experience">
+      <div class="wrap experience-grid">
+
+        <div class="reveal">
+
+          <p class="eyebrow"><span>03</span><span>/</span><span>Experience</span></p>
+
+          <h2 class="section-title">
+            一緒に何かをする。<br>
+            そのきっかけを。
+          </h2>
+
+          <p class="body-text">
+            <span class="nowrap">PIXEL PAWは、</span><span class="nowrap">単なる検索や</span><span class="nowrap">マッチングではなく、</span><span class="nowrap">実際の行動につながる</span><span class="nowrap">体験をデザインします。</span>
+          </p>
+
+        </div>
+
+        <div class="flow-wrap reveal">
+
+          <p class="flow-note hand">AIが導く、4つの可能性の組み合わせ</p>
+
+          <ol class="flow">
+
+            <li class="flow-step">
+              <div class="flow-head">
+                <span class="flow-letter" aria-hidden="true">A</span>
+                <h3 class="flow-name">興味・好き</h3>
+              </div>
+              <div class="flow-card">
+                <ul class="tags">
+                  <li>アート</li>
+                  <li>テクノロジー</li>
+                  <li>カフェ</li>
+                  <li>音楽</li>
+                  <li>旅</li>
+                  <li>…</li>
+                </ul>
+              </div>
+              <p class="flow-caption">あなたの興味・行動から<br>パターンを分析</p>
+            </li>
+
+            <li class="flow-step">
+              <div class="flow-head">
+                <span class="flow-letter" aria-hidden="true">B</span>
+                <h3 class="flow-name">出会う人</h3>
+              </div>
+              <div class="flow-card">
+                <div class="avatars" aria-hidden="true">
+                  <svg style="--bg:#e6eef5; --shirt:#4f6a86; --hair:#2f3b4d"><use href="#i-person"/></svg>
+                  <svg style="--bg:#cfe6f8; --shirt:#5a9fd4; --hair:#33425a"><use href="#i-person"/></svg>
+                  <svg style="--bg:#fbdcc4; --shirt:#e99a5f; --hair:#5a3d3a"><use href="#i-person"/></svg>
+                  <svg style="--bg:#e3e9f0; --shirt:#7a8ea6; --hair:#3b4a63"><use href="#i-person"/></svg>
+                </div>
+                <p>同じ興味を持つ人<br>クリエイター・学生・企業<br>…</p>
+              </div>
+              <p class="flow-caption">相性の良い人や<br>グループを提案</p>
+            </li>
+
+            <li class="flow-step">
+              <div class="flow-head">
+                <span class="flow-letter" aria-hidden="true">C</span>
+                <h3 class="flow-name">場所・体験</h3>
+              </div>
+              <div class="flow-card">
+                <img src="images/exp-place.jpg" alt="" width="480" height="360" loading="lazy">
+                <p>イベント・展示・カフェ<br>ワークショップ・地域拠点<br>…</p>
+              </div>
+              <p class="flow-caption">あなたに合う場所や<br>イベントをマッチング</p>
+            </li>
+
+            <li class="flow-step">
+              <div class="flow-head">
+                <span class="flow-letter" aria-hidden="true">D</span>
+                <h3 class="flow-name">新しい未来</h3>
+              </div>
+              <div class="flow-card">
+                <img src="images/exp-future.jpg" alt="" width="480" height="360" loading="lazy">
+                <p>会話・体験・<br>コラボレーション<br>…</p>
+              </div>
+              <p class="flow-caption">一緒に創る、<br>次の可能性へ</p>
+            </li>
+
+          </ol>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =======================================================
+         04 PRIVACY & TRUST
+    ======================================================== -->
+
+    <section class="privacy" id="privacy">
+
+      <div class="wrap">
+        <div class="privacy-copy reveal">
+
+          <p class="eyebrow"><span>04</span><span>/</span><span>Privacy &amp; Trust</span></p>
+
+          <h2 class="section-title">
+            AIは、あなたの人生を<br>
+            もっと豊かにできる、<br>
+            プライバシーは大切に。
+          </h2>
+
+          <p class="body-text">
+            <span class="nowrap">私たちは、</span><span class="nowrap">あなたが選択した</span><span class="nowrap">興味・参加体験・</span><span class="nowrap">その場の情報をもとに、</span><span class="nowrap">必要最小限の情報を、</span><span class="nowrap">本人の同意のもとで</span><span class="nowrap">利用します。</span>
+          </p>
+
+        </div>
+      </div>
+
+      <p class="privacy-note hand">
+        まだ見ぬ出会いが、<br>
+        　　　この街にある。
+      </p>
+
+      <img
+        class="privacy-image"
+        src="images/closing.jpg"
+        alt=""
+        width="1536"
+        height="672"
+        loading="lazy"
+      >
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
+  <footer class="site-footer">
+    <div class="wrap">
+
+      <a class="logo" href="#top">PIXEL PAW</a>
+
+      <a class="mail" href="mailto:hi@pixelpaw.org">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5.5" width="18" height="13" rx="1.5"/>
+          <path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>
+        </svg>
+        hi@pixelpaw.org
+      </a>
+
+      <p class="copyright">© 2026 PIXEL PAW. All rights reserved.</p>
+
+    </div>
+  </footer>
+
+
+  <script>
+
+    /* ---------------------------------------------------------
+       SCROLL REVEAL
+       Content stays visible if JavaScript does not run.
+    --------------------------------------------------------- */
+
+    document.documentElement.classList.add("js");
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+
+      const revealObserver = new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              revealObserver.unobserve(entry.target);
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+      revealElements.forEach(element => {
+        revealObserver.observe(element);
+      });
+
+    } else {
+
+      revealElements.forEach(element => {
+        element.classList.add("visible");
+      });
+
+    }
+
+  </script>
 
 </body>
 </html>
